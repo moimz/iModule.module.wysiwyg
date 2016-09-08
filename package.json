@@ -1,0 +1,25 @@
+{
+	"id":"com.moimz.imodule.module.wysiwyg",
+	"title":{
+		"ko":"위지윅에디터"
+	},
+	"version":"3.0.0",
+	"description":{
+		"ko":"모듈에서 HTML편집기(위지윅에디터)와 관련된 전반적인 기능을 관리합니다."
+	},
+	"author":{
+		"name":"Arzz",
+		"email":"arzz@arzz.com"
+	},
+	"homepage":"https://www.imodule.kr",
+	"versionChecker":"http://www.moimz.com/ko/api/moimz/getLatest",
+	"dependencies":{
+		"core":"3.0.0",
+		"attachment":"3.0.0"
+	},
+	"language":"ko",
+	"admin":false,
+	"context":false,
+	"global":false,
+	"article":false
+}
