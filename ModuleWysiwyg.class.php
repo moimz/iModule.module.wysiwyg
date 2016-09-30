@@ -159,9 +159,12 @@ class ModuleWysiwyg {
 		return $this;
 	}
 	
+	/**
+	 * 위지윅에디터를 사용하기 위한 필수요소를 미리 불러온다.
+	 */
 	function preload() {
-		$this->IM->addSiteHeader('script',$this->Module->getDir().'/scripts/wysiwyg.js.php');
-		$this->IM->addSiteHeader('style',$this->Module->getDir().'/styles/wysiwyg.css.php?theme='.$this->_theme);
+		$this->IM->addHeadResource('script',$this->Module->getDir().'/scripts/wysiwyg.js.php');
+		$this->IM->addHeadResource('style',$this->Module->getDir().'/styles/wysiwyg.css.php?theme='.$this->_theme);
 	}
 	
 	function doLayout() {
