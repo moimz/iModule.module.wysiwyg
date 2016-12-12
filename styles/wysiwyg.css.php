@@ -13,9 +13,9 @@ foreach ($plugins as $plugin) {
 	}
 }
 ?>
-.fr-box h1 {font-size:17px; font-weight:bold; font-family:defaultFont, sans-serif;}
-.fr-box h2 {font-size:15px; font-weight:bold; font-family:defaultFont, sans-serif;}
-.fr-box h3 {font-size:13px; font-weight:bold; font-family:defaultFont, sans-serif;}
+.fr-box h1 {font-size:17px; font-weight:bold; font-family:inherit;}
+.fr-box h2 {font-size:15px; font-weight:bold; font-family:inherit;}
+.fr-box h3 {font-size:13px; font-weight:bold; font-family:inherit;}
 .fr-box ol, .fr-box ul {margin-left:25px;}
 .fr-box label {display:inline !important;}
 .fr-box table {border-collapse:collapse; border-spacing:0; border:1px; empty-cells:show; table-layout:auto; max-width:100%;}
