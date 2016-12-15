@@ -1,5 +1,6 @@
 {
 	"id":"com.moimz.imodule.module.wysiwyg",
+	"icon":"xi xi-type",
 	"title":{
 		"ko":"위지윅에디터"
 	},
@@ -21,5 +22,11 @@
 	"admin":false,
 	"context":false,
 	"global":false,
-	"article":false
+	"article":false,
+	"configs":{
+		"iframe":{
+			"type":"longtext",
+			"value":"www.youtube.com\nmaps.google.com\nplayer.vimeo.com\napi.daum.net\ntvpot.daum.net\nv.nate.com\nchannel.pandora.tv\nplay.pullbbang.com\nwww.slideshare.net"
+		}
+	}
 }

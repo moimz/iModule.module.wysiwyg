@@ -1,0 +1,11 @@
+{
+	"admin":{
+		"configs":{
+			"form":{
+				"default_setting":"모듈기본설정",
+				"iframe":"아이프레임 URL",
+				"iframe_help":"위지윅에디터에 삽입되어 있는 iframe 중 설정되지 않은 URL 을 가진 iframe 은 제거됩니다.<br>http:// 또는 https:// 는 제외한 도메인을 엔터로 구분하여 입력하여 주십시오."
+			}
+		}
+	}
+}
