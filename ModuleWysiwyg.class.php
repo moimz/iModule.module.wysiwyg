@@ -328,27 +328,19 @@ class ModuleWysiwyg {
 	 * 위지윅 에디터를 가져온다.
 	 */
 	function get() {
+		$this->preload();
+		
 		$this->_id = $this->_id == null ? uniqid('wysiwyg-') : $this->_id;
 		$this->_name = $this->_name == null ? 'content' : $this->_name;
-		$this->IM->addHeadResource('script',$this->getModule()->getDir().'/scripts/wysiwyg.js.php');
-		$this->IM->addHeadResource('style',$this->getModule()->getDir().'/styles/wysiwyg.css.php?theme='.$this->_theme);
 		
 		$wysiwyg = PHP_EOL.'<div data-role="wysiwyg">'.PHP_EOL;
-		$wysiwyg.= '<textarea id="'.$this->_id.'" name="'.$this->_name.'" data-wysiwyg="true" data-module="'.$this->_module.'" data-uploader="'.($this->_uploader == true ? 'true' : 'false').'" data-minHeight="'.$this->_height.'"'.($this->_required == true ? ' data-required="required"' : '').''.($this->_placeholderText != null ? ' placeholder="'.$this->_placeholderText.'"' : '').'>'.($this->_content !== null ? $this->_content : '').'</textarea>'.PHP_EOL;
+		$wysiwyg.= '<textarea id="'.$this->_id.'" name="'.$this->_name.'" data-wysiwyg="TRUE" data-wysiwyg-module="'.$this->_module.'" data-wysiwyg-uploader="'.($this->_uploader == true ? 'TRUE' : 'FALSE').'" data-wysiwyg-minHeight="'.$this->_height.'"'.($this->_required == true ? ' data-wysiwyg-required="required"' : '').''.($this->_placeholderText != null ? ' placeholder="'.$this->_placeholderText.'"' : '').'>'.($this->_content !== null ? $this->_content : '').'</textarea>'.PHP_EOL;
 		$wysiwyg.= '</div>'.PHP_EOL;
-		$wysiwyg.= $this->_buildScript();
+		$wysiwyg.= '<script>$(document).ready(function() { $("#'.$this->_id.'").wysiwyg(); });</script>'.PHP_EOL;
 		
 		$this->reset();
+		
 		return $wysiwyg;
-		
-		echo $wysiwyg;
-		
-		if ($this->_uploader == true) {
-			$this->_attachment->setId($this->_id.'-attachment');
-			$this->_attachment->doLayout();
-		}
-		
-		$this->reset();
 	}
 	
 	/**
@@ -415,20 +407,20 @@ class ModuleWysiwyg {
 	 * @return string $content 정리된 위지윅에디터 내용 HTML
 	 */
 	function encodeContent($content,$attachments=array()) {
-		if (preg_match_all('/<img(.*?)data-idx="([0-9]+)"(.*?)>/',$content,$match) == true) {
-			for ($i=0, $loop=count($match[0]);$i<$loop;$i++) {
-				if (in_array($match[2][$i],$attachment) == true) {
-					$image = preg_replace('/ src="(.*?)"/','',$match[0][$i]);
-					$content = str_replace($match[0][$i],$image,$content);
+		if (preg_match_all('/<img(.*?)data-idx="([0-9]+)"(.*?)>/',$content,$match,PREG_SET_ORDER) == true) {
+			for ($i=0, $loop=count($match);$i<$loop;$i++) {
+				if (in_array($match[$i][2],$attachments) == true) {
+					$image = preg_replace('/ src="(.*?)"/','',$match[$i][0]);
+					$content = str_replace($match[$i][0],$image,$content);
 				} else {
-					$file = $this->db()->select($this->table->attachment)->where('idx',$match[2][$i])->getOne();
+					$file = $this->IM->getModule('attachment')->getFileInfo($match[$i][2]);
 					if ($file == null) {
-						$content = str_replace($match[0][$i],'',$content);
+						$content = str_replace($match[$i][0],'',$content);
 					} else {
-						$fileIdx = $this->IM->getModule('attachment')->copyFile($match[2][$i]);
-						$image = preg_replace('/ src="(.*?)"/','',$match[0][$i]);
-						$image = str_replace('data-idx="'.$match[2][$i].'"','data-idx="'.$fileIdx.'"',$image);
-						$content = str_replace($match[0][$i],'',$content);
+						$fileIdx = $this->IM->getModule('attachment')->copyFile($match[$i][2]);
+						$image = preg_replace('/ src="(.*?)"/','',$match[$i][0]);
+						$image = str_replace('data-idx="'.$match[$i][2].'"','data-idx="'.$fileIdx.'"',$image);
+						$content = str_replace($match[$i][0],'',$content);
 					}
 				}
 			}
@@ -444,17 +436,20 @@ class ModuleWysiwyg {
 	 * @param string $content 위지윅에디터 원본내용
 	 * @return string $content 출력을 위한 위지윅에디터 내용
 	 */
-	function decodeContent($content) {
-		$content = $this->getHTMLPurifier()->purify($content);
-		$content = PHP_EOL.'<div data-role="wysiwyg-content">'.$content.'</div>'.PHP_EOL;
+	function decodeContent($content,$is_purify=true) {
+		if (preg_match_all('/<img(.*?)data-idx="([0-9]+)"(.*?)>/',$content,$match,PREG_SET_ORDER) == true) {
+			for ($i=0, $loop=count($match);$i<$loop;$i++) {
+				$image = '<img'.$match[$i][1].'data-idx="'.$match[$i][2].'" src="'.$this->IM->getModule('attachment')->getFileInfo($match[$i][2])->path.'"'.$match[$i][3].'>';
+				$content = str_replace($match[$i][0],$image,$content);
+			}
+		}
+		
+		if ($is_purify == true) {
+			$content = $this->getHTMLPurifier()->purify($content);
+			$content = PHP_EOL.'<div data-role="wysiwyg-content">'.$content.'</div>'.PHP_EOL;
+		}
 		
 		return $content;
-	}
-	
-	function _buildScript() {
-		$script = '<script>$(document).ready(function() { $("#'.$this->_id.'").wysiwyg(); });</script>'.PHP_EOL;
-		
-		return $script;
 	}
 }
 ?>
