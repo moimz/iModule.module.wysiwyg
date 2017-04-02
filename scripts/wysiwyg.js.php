@@ -10,7 +10,6 @@ foreach ($plugins as $plugin) {
 	}
 }
 ?>
-
 (function($) {
 	$.fn.wysiwyg = function(isReload) {
 		var $textarea = this;
@@ -125,18 +124,19 @@ foreach ($plugins as $plugin) {
 			}
 		});
 		
+		
+		*/
 		$textarea.on("froalaEditor.file.inserted",function(e,editor,$file,response) {
 			console.log("uploaded");
 			
 			if (response) {
 				var result = typeof response == "object" ? response : JSON.parse(response);
-				if (result.success == true) {
-					$file.attr("href",result.file.download);
-					$file.attr("data-idx",result.file.idx);
+				if (result.idx) {
+					$file.attr("data-idx",result.idx);
 				}
 			}
 		});
-		*/
+		
 		$textarea.froalaEditor({
 			key:"pFOFSAGLUd1AVKg1SN==", // Froala Wysiwyg OEM License Key For MoimzTools Only
 			pluginsEnabled:plugins,

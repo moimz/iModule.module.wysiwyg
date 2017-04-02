@@ -333,10 +333,10 @@ class ModuleWysiwyg {
 		$this->_id = $this->_id == null ? uniqid('wysiwyg-') : $this->_id;
 		$this->_name = $this->_name == null ? 'content' : $this->_name;
 		
-		$wysiwyg = PHP_EOL.'<div data-role="wysiwyg">'.PHP_EOL;
+		$wysiwyg = PHP_EOL.'<div data-role="module" data-module="wysiwyg">'.PHP_EOL;
 		$wysiwyg.= '<textarea id="'.$this->_id.'" name="'.$this->_name.'" data-wysiwyg="TRUE" data-wysiwyg-module="'.$this->_module.'" data-wysiwyg-uploader="'.($this->_uploader == true ? 'TRUE' : 'FALSE').'" data-wysiwyg-minHeight="'.$this->_height.'"'.($this->_required == true ? ' data-wysiwyg-required="required"' : '').''.($this->_placeholderText != null ? ' placeholder="'.$this->_placeholderText.'"' : '').'>'.($this->_content !== null ? $this->_content : '').'</textarea>'.PHP_EOL;
-		$wysiwyg.= '</div>'.PHP_EOL;
 		$wysiwyg.= '<script>$(document).ready(function() { $("#'.$this->_id.'").wysiwyg(); });</script>'.PHP_EOL;
+		$wysiwyg.= '</div>'.PHP_EOL;
 		
 		$this->reset();
 		
@@ -426,6 +426,25 @@ class ModuleWysiwyg {
 			}
 		}
 		
+		if (preg_match_all('/<a(.*?)data-idx="([0-9]+)"(.*?)>/',$content,$match,PREG_SET_ORDER) == true) {
+			for ($i=0, $loop=count($match);$i<$loop;$i++) {
+				if (in_array($match[$i][2],$attachments) == true) {
+					$image = preg_replace('/ href="(.*?)"/','',$match[$i][0]);
+					$content = str_replace($match[$i][0],$image,$content);
+				} else {
+					$file = $this->IM->getModule('attachment')->getFileInfo($match[$i][2]);
+					if ($file == null) {
+						$content = str_replace($match[$i][0],'',$content);
+					} else {
+						$fileIdx = $this->IM->getModule('attachment')->copyFile($match[$i][2]);
+						$image = preg_replace('/ href="(.*?)"/','',$match[$i][0]);
+						$image = str_replace('data-idx="'.$match[$i][2].'"','data-idx="'.$fileIdx.'"',$image);
+						$content = str_replace($match[$i][0],'',$content);
+					}
+				}
+			}
+		}
+		
 		return $content;
 	}
 	
@@ -440,6 +459,13 @@ class ModuleWysiwyg {
 		if (preg_match_all('/<img(.*?)data-idx="([0-9]+)"(.*?)>/',$content,$match,PREG_SET_ORDER) == true) {
 			for ($i=0, $loop=count($match);$i<$loop;$i++) {
 				$image = '<img'.$match[$i][1].'data-idx="'.$match[$i][2].'" src="'.$this->IM->getModule('attachment')->getFileInfo($match[$i][2])->path.'"'.$match[$i][3].'>';
+				$content = str_replace($match[$i][0],$image,$content);
+			}
+		}
+		
+		if (preg_match_all('/<a(.*?)data-idx="([0-9]+)"(.*?)>/',$content,$match,PREG_SET_ORDER) == true) {
+			for ($i=0, $loop=count($match);$i<$loop;$i++) {
+				$image = '<a'.$match[$i][1].'data-idx="'.$match[$i][2].'" href="'.$this->IM->getModule('attachment')->getFileInfo($match[$i][2])->download.'"'.$match[$i][3].'>';
 				$content = str_replace($match[$i][0],$image,$content);
 			}
 		}

@@ -29,14 +29,15 @@ foreach ($plugins as $plugin) {
 .fr-box img {max-width:100%;}
 
 .fr-wrapper {border-radius:0px !important;}
-.fr-toolbar {border-top:1px solid #222 !important; border-radius:0px !important; -moz-border-radius:0px !important; -webkit-border-radius:0px !important;}
-.fr-command.fr-btn {margin:0px !important;}
-.fr-command.fr-btn i {font-size:12px !important; margin:12px 10px !important;}
-.fr-command.fr-btn.fr-dropdown i {margin-right:15px !important;}
-.fr-command.fr-btn.fr-dropdown::after {right:5px !important;}
-.fr-separator.fr-vs {height:32px !important;}
+.fr-toolbar {border-top-width:2px !important; border-radius:0px !important; -moz-border-radius:0px !important; -webkit-border-radius:0px !important;}
+
 .fr-view {line-height:1.6;}
 .fr-dropdown-list li {font-size:13px !important;}
 .fr-dropdown-list li a {padding:3px 15px !important;}
 .fr-popup {border-top:3px solid #222 !important; margin-top:7px !important; border-radius:0px !important;}
 .fr-popup .fr-arrow {top:-7px !important;}
+
+div[data-module=wysiwyg].error .fr-toolbar.fr-top {border-top-color:#f44336 !important; box-shadow:0px 1px 3px rgba(244,67,54,.3), 0 1px 1px 1px rgba(244,67,54,.3);}
+div[data-module=wysiwyg].error .fr-box.fr-basic.fr-top .fr-wrapper {box-shadow:0 1px 3px rgba(244,67,54,.3),0 1px 1px 1px rgba(244,67,54,.3)}
+div[data-module=wysiwyg].success .fr-toolbar.fr-top {border-top-color:#4caf50 !important; box-shadow:0 1px 3px rgba(76,175,80,.3), 0 1px 1px 1px rgba(76,175,80,.3);}
+div[data-module=wysiwyg].success .fr-box.fr-basic.fr-top .fr-wrapper {box-shadow:0 1px 3px rgba(76,175,80,.3),0 1px 1px 1px rgba(76,175,80,.3)}
