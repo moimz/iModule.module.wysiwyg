@@ -271,7 +271,7 @@ class ModuleWysiwyg {
 	}
 	
 	function setContent($content) {
-		$this->_content = $content;
+		$this->_content = $this->decodeContent($content,false);
 		
 		return $this;
 	}
