@@ -417,7 +417,7 @@ class ModuleWysiwyg {
 					if ($file == null) {
 						$content = str_replace($match[$i][0],'',$content);
 					} else {
-						$fileIdx = $this->IM->getModule('attachment')->copyFile($match[$i][2]);
+						$fileIdx = $this->IM->getModule('attachment')->fileCopy($match[$i][2]);
 						$image = preg_replace('/ src="(.*?)"/','',$match[$i][0]);
 						$image = str_replace('data-idx="'.$match[$i][2].'"','data-idx="'.$fileIdx.'"',$image);
 						$content = str_replace($match[$i][0],'',$content);
