@@ -152,10 +152,10 @@ foreach ($plugins as $plugin) {
 			toolbarStickyOffset:$("#iModuleNavigation").outerHeight(true),
 			placeholderText:$textarea.attr("placeholder") ? $textarea.attr("placeholder") : "Type something",
 			imageEditButtons:["imageAlign","imageLink","linkOpen","linkEdit","linkRemove","imageDisplay","imageStyle","imageAlt","imageSize"],
-			toolbarButtons:["html","|","bold","italic","underline","strikeThrough","|","paragraphFormat","fontSize","color","|","align","formatOL","formatUL","|","insertLink","insertTable","insertImage","insertFile","insertVideo","insertCode"],
-			toolbarButtonsXS:["bold","italic","underline","strikeThrough","|","paragraphFormat","fontSize","color","|","align","formatOL","formatUL","|","insertLink","insertImage","insertFile","insertVideo"],
-			toolbarButtonsMD:["bold","italic","underline","strikeThrough","|","paragraphFormat","fontSize","color","|","align","formatOL","formatUL","|","insertLink","insertImage","insertFile","insertVideo"],
-			toolbarButtonsSM:["bold","italic","underline","strikeThrough","|","paragraphFormat","fontSize","color","|","align","formatOL","formatUL","|","insertLink","insertImage","insertFile","insertVideo"],
+			toolbarButtons:["html","|","bold","italic","underline","|","paragraphFormat","fontSize","color","|","align","formatOL","formatUL","|","insertLink","insertTable","insertImage","insertFile","insertVideo","insertCode"],
+			toolbarButtonsXS:["bold","italic","underline","|","paragraphFormat","fontSize","color","|","align","formatOL","formatUL","|","insertLink","insertImage","insertFile","insertVideo"],
+			toolbarButtonsMD:["bold","italic","underline","|","paragraphFormat","fontSize","color","|","align","formatOL","formatUL","|","insertLink","insertImage","insertFile","insertVideo"],
+			toolbarButtonsSM:["bold","italic","underline","|","paragraphFormat","fontSize","color","|","align","formatOL","formatUL","|","insertLink","insertImage","insertFile","insertVideo"],
 			
 			pasteDeniedTags:["a","abbr","address","area","article","aside","audio","base","bdi","bdo","blockquote","button","canvas","caption","cite","code","col","colgroup","datalist","dd","del","details","dfn","dialog","div","dl","dt","em","embed","fieldset","figcaption","figure","footer","form","h1","h2","h3","h4","h5","h6","header","hgroup","hr","iframe","img","input","ins","kbd","keygen","label","legend","li","link","main","map","mark","menu","menuitem","meter","nav","noscript","object","ol","optgroup","option","output","param","pre","progress","queue","rp","rt","ruby","s","samp","script","style","section","select","small","source","span","strike","strong","sub","summary","sup","textarea","time","title","tr","track","ul","var","video","wbr"],
 			pasteDeniedAttrs:["class","id","style"]

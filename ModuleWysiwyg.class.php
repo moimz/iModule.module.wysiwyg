@@ -368,37 +368,13 @@ class ModuleWysiwyg {
 		$config->set('HTML.SafeIframe',true);
 		$config->set('HTML.SafeObject',true);
 		$config->set('Output.FlashCompat',true);
-	
-		$config->set('URI.SafeIframeRegexp', '#^(?:https?:)?//(?:'.implode('|', array(
-			'www\\.youtube(?:-nocookie)?\\.com/',
-			'maps\\.google\\.com/',
-			'player\\.vimeo\\.com/video/',
-			'www\\.microsoft\\.com/showcase/video\\.aspx',
-			'(?:serviceapi\\.nmv|player\\.music)\\.naver\\.com/',
-			'(?:api\\.v|flvs|tvpot|videofarm)\\.daum\\.net/',
-			'v\\.nate\\.com/',
-			'play\\.mgoon\\.com/',
-			'channel\\.pandora\\.tv/',
-			'www\\.tagstory\\.com/',
-			'play\\.pullbbang\\.com/',
-			'tv\\.seoul\\.go\\.kr/',
-			'ucc\\.tlatlago\\.com/',
-			'vodmall\\.imbc\\.com/',
-			'www\\.musicshake\\.com/',
-			'www\\.afreeca\\.com/player/Player\\.swf',
-			'static\\.plaync\\.co\\.kr/',
-			'video\\.interest\\.me/',
-			'player\\.mnet\\.com/',
-			'sbsplayer\\.sbs\\.co\\.kr/',
-			'img\\.lifestyler\\.co\\.kr/',
-			'c\\.brightcove\\.com/',
-			'www\\.slideshare\\.net/',
-		)).')#');
+		
+		$iframe = explode("\n",str_replace(array('.'),array('\\.'),$this->getModule()->getConfig('iframe')));
+		$config->set('URI.SafeIframeRegexp', '#^(?:https?:)?//(?:'.implode('|',$iframe).')#');
 		
 		$this->_HTMLPurifier = new HTMLPurifier($config);
 		return $this->_HTMLPurifier;
 	}
-	 
 	
 	/**
 	 * 위지윅에디터의 내용을 정리한다.
