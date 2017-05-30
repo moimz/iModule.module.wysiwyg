@@ -383,7 +383,7 @@ class ModuleWysiwyg {
 	 * @param object[] $attachments 위지윅에디터에 포함된 첨부파일 배열
 	 * @return string $content 정리된 위지윅에디터 내용 HTML
 	 */
-	function encodeContent($content,$attachments=array()) {
+	function encodeContent($content,&$attachments=array()) {
 		if (preg_match_all('/<img(.*?)data-idx="([0-9]+)"(.*?)>/',$content,$match,PREG_SET_ORDER) == true) {
 			for ($i=0, $loop=count($match);$i<$loop;$i++) {
 				if (in_array($match[$i][2],$attachments) == true) {
@@ -397,7 +397,8 @@ class ModuleWysiwyg {
 						$fileIdx = $this->IM->getModule('attachment')->fileCopy($match[$i][2]);
 						$image = preg_replace('/ src="(.*?)"/','',$match[$i][0]);
 						$image = str_replace('data-idx="'.$match[$i][2].'"','data-idx="'.$fileIdx.'"',$image);
-						$content = str_replace($match[$i][0],'',$content);
+						$content = str_replace($match[$i][0],$image,$content);
+						$attachments[] = $fileIdx;
 					}
 				}
 			}
@@ -406,17 +407,18 @@ class ModuleWysiwyg {
 		if (preg_match_all('/<a(.*?)data-idx="([0-9]+)"(.*?)>/',$content,$match,PREG_SET_ORDER) == true) {
 			for ($i=0, $loop=count($match);$i<$loop;$i++) {
 				if (in_array($match[$i][2],$attachments) == true) {
-					$image = preg_replace('/ href="(.*?)"/','',$match[$i][0]);
-					$content = str_replace($match[$i][0],$image,$content);
+					$download = preg_replace('/ href="(.*?)"/','',$match[$i][0]);
+					$content = str_replace($match[$i][0],$download,$content);
 				} else {
 					$file = $this->IM->getModule('attachment')->getFileInfo($match[$i][2]);
 					if ($file == null) {
 						$content = str_replace($match[$i][0],'',$content);
 					} else {
-						$fileIdx = $this->IM->getModule('attachment')->copyFile($match[$i][2]);
-						$image = preg_replace('/ href="(.*?)"/','',$match[$i][0]);
-						$image = str_replace('data-idx="'.$match[$i][2].'"','data-idx="'.$fileIdx.'"',$image);
-						$content = str_replace($match[$i][0],'',$content);
+						$fileIdx = $this->IM->getModule('attachment')->fileCopy($match[$i][2]);
+						$download = preg_replace('/ href="(.*?)"/','',$match[$i][0]);
+						$download = str_replace('data-idx="'.$match[$i][2].'"','data-idx="'.$fileIdx.'"',$image);
+						$content = str_replace($match[$i][0],$download,$content);
+						$attachments[] = $fileIdx;
 					}
 				}
 			}
@@ -435,15 +437,25 @@ class ModuleWysiwyg {
 	function decodeContent($content,$is_purify=true) {
 		if (preg_match_all('/<img(.*?)data-idx="([0-9]+)"(.*?)>/',$content,$match,PREG_SET_ORDER) == true) {
 			for ($i=0, $loop=count($match);$i<$loop;$i++) {
-				$image = '<img'.$match[$i][1].'data-idx="'.$match[$i][2].'" src="'.$this->IM->getModule('attachment')->getFileInfo($match[$i][2])->path.'"'.$match[$i][3].'>';
+				$file = $this->IM->getModule('attachment')->getFileInfo($match[$i][2]);
+				if ($file != null) {
+					$image = '<img'.$match[$i][1].'data-idx="'.$match[$i][2].'" src="'.$file->path.'"'.$match[$i][3].'>';
+				} else {
+					$image = '';
+				}
 				$content = str_replace($match[$i][0],$image,$content);
 			}
 		}
 		
 		if (preg_match_all('/<a(.*?)data-idx="([0-9]+)"(.*?)>/',$content,$match,PREG_SET_ORDER) == true) {
 			for ($i=0, $loop=count($match);$i<$loop;$i++) {
-				$image = '<a'.$match[$i][1].'data-idx="'.$match[$i][2].'" href="'.$this->IM->getModule('attachment')->getFileInfo($match[$i][2])->download.'"'.$match[$i][3].'>';
-				$content = str_replace($match[$i][0],$image,$content);
+				$file = $this->IM->getModule('attachment')->getFileInfo($match[$i][2]);
+				if ($file != null) {
+					$link = '<a'.$match[$i][1].'data-idx="'.$match[$i][2].'" href="'.$this->IM->getModule('attachment')->getFileInfo($match[$i][2])->download.'"'.$match[$i][3].'>';
+				} else {
+					$link = '';
+				}
+				$content = str_replace($match[$i][0],$link,$content);
 			}
 		}
 		
