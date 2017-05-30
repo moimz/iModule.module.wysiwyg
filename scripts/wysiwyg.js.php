@@ -69,8 +69,6 @@ foreach ($plugins as $plugin) {
 				Attachment.add($(this).data("uploader").attr("id"),[upload_img]);
 				editor.edit.on();
 				
-				console.log(upload_img);
-				
 				return false;
 			});
 			
