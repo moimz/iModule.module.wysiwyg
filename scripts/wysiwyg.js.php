@@ -89,44 +89,8 @@ foreach ($plugins as $plugin) {
 				return false;
 			});
 		}
-		/*
-		$textarea.on("froalaEditor.image.uploaded",function(e,editor,response) {
-			var result = JSON.parse(response);
-			if (result.success == true) {
-//				var id = editor.$oel.attr("id")+"-attachment";
-				var file = result.file;
-//				file.status = "COMPLETE";
-//				Attachment.add(id,file);
-			}
-		});
 		
-		$textarea.on("froalaEditor.file.uploaded",function(e,editor,response) {
-			var result = JSON.parse(response);
-			if (result.success == true) {
-				console.log("uploaded");
-				var id = editor.$oel.attr("id")+"-attachment";
-				var file = result.file;
-				file.status = "COMPLETE";
-				Attachment.add(id,file);
-			}
-		});
-		
-		$textarea.on("froalaEditor.image.inserted",function(e,editor,$img,response) {
-			if (response) {
-				var result = typeof response == "object" ? response : JSON.parse(response);
-				if (result.success == true) {
-					$img.attr("data-success",null);
-					$img.attr("data-fileinfo",null);
-					$img.attr("data-idx",result.file.idx);
-				}
-			}
-		});
-		
-		
-		*/
 		$textarea.on("froalaEditor.file.inserted",function(e,editor,$file,response) {
-			console.log("uploaded");
-			
 			if (response) {
 				var result = typeof response == "object" ? response : JSON.parse(response);
 				if (result.idx) {
