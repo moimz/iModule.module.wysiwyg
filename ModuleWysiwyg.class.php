@@ -384,7 +384,7 @@ class ModuleWysiwyg {
 	 * @return string $content 정리된 위지윅에디터 내용 HTML
 	 */
 	function encodeContent($content,&$attachments=array()) {
-		if (preg_match_all('/<img(.*?)data-idx="([0-9]+)"(.*?)>/',$content,$match,PREG_SET_ORDER) == true) {
+		if (preg_match_all('/<img([^>]*)data-idx="([0-9]+)"([^>]*)>/',$content,$match,PREG_SET_ORDER) == true) {
 			for ($i=0, $loop=count($match);$i<$loop;$i++) {
 				if (in_array($match[$i][2],$attachments) == true) {
 					$image = preg_replace('/ src="(.*?)"/','',$match[$i][0]);
@@ -404,7 +404,7 @@ class ModuleWysiwyg {
 			}
 		}
 		
-		if (preg_match_all('/<a(.*?)data-idx="([0-9]+)"(.*?)>/',$content,$match,PREG_SET_ORDER) == true) {
+		if (preg_match_all('/<a([^>]*)data-idx="([0-9]+)"([^>]*)>/',$content,$match,PREG_SET_ORDER) == true) {
 			for ($i=0, $loop=count($match);$i<$loop;$i++) {
 				if (in_array($match[$i][2],$attachments) == true) {
 					$download = preg_replace('/ href="(.*?)"/','',$match[$i][0]);
@@ -435,7 +435,7 @@ class ModuleWysiwyg {
 	 * @return string $content 출력을 위한 위지윅에디터 내용
 	 */
 	function decodeContent($content,$is_purify=true) {
-		if (preg_match_all('/<img(.*?)data-idx="([0-9]+)"(.*?)>/',$content,$match,PREG_SET_ORDER) == true) {
+		if (preg_match_all('/<img([^>]*)data-idx="([0-9]+)"([^>]*)>/',$content,$match,PREG_SET_ORDER) == true) {
 			for ($i=0, $loop=count($match);$i<$loop;$i++) {
 				$file = $this->IM->getModule('attachment')->getFileInfo($match[$i][2]);
 				if ($file != null) {
@@ -447,7 +447,7 @@ class ModuleWysiwyg {
 			}
 		}
 		
-		if (preg_match_all('/<a(.*?)data-idx="([0-9]+)"(.*?)>/',$content,$match,PREG_SET_ORDER) == true) {
+		if (preg_match_all('/<a([^>]*)data-idx="([0-9]+)"([^>]*)>/',$content,$match,PREG_SET_ORDER) == true) {
 			for ($i=0, $loop=count($match);$i<$loop;$i++) {
 				$file = $this->IM->getModule('attachment')->getFileInfo($match[$i][2]);
 				if ($file != null) {
