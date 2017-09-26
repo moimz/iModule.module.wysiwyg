@@ -1,9 +1,35 @@
 /*!
- * froala_editor v2.5.0 (https://www.froala.com/wysiwyg-editor)
+ * froala_editor v2.7.0 (https://www.froala.com/wysiwyg-editor)
  * License https://froala.com/wysiwyg-editor/terms/
  * Copyright 2014-2017 Froala Labs
  */
 
+(function (factory) {
+    if (typeof define === 'function' && define.amd) {
+        // AMD. Register as an anonymous module.
+        define(['jquery'], factory);
+    } else if (typeof module === 'object' && module.exports) {
+        // Node/CommonJS
+        module.exports = function( root, jQuery ) {
+            if ( jQuery === undefined ) {
+                // require('jQuery') returns a factory that requires window to
+                // build a jQuery instance, we normalize how we use modules
+                // that require this pattern but the window provided is a noop
+                // if it's defined (how jquery works)
+                if ( typeof window !== 'undefined' ) {
+                    jQuery = require('jquery');
+                }
+                else {
+                    jQuery = require('jquery')(root);
+                }
+            }
+            return factory(jQuery);
+        };
+    } else {
+        // Browser globals
+        factory(window.jQuery);
+    }
+}(function ($) {
 /**
  * Korean
  */
@@ -110,14 +136,14 @@ $.FE.LANGUAGE['ko'] = {
     "Remove Table": "\ud14c\uc774\ube14\uc744 \uc81c\uac70",
     "Table Style": "\ud45c \uc2a4\ud0c0\uc77c",
     "Horizontal Align": "\uc218\ud3c9 \uc815\ub82c",
-    "Row": "\uc5f4",
-    "Insert row above": "\uc55e\uc5d0 \uc5f4\uc744 \uc0bd\uc785",
-    "Insert row below": "\ub4a4\uc5d0 \uc5f4\uc744 \uc0bd\uc785",
-    "Delete row": "\uc5f4 \uc0ad\uc81c",
-    "Column": "\ud589",
-    "Insert column before": "\uc55e\uc5d0 \ud589\uc744 \uc0bd\uc785",
-    "Insert column after": "\ub4a4\uc5d0 \ud589\uc744 \uc0bd\uc785",
-    "Delete column": "\ud589 \uc0ad\uc81c",
+    "Row": "\ud589",
+    "Insert row above": "\uc55e\uc5d0 \ud589\uc744 \uc0bd\uc785",
+    "Insert row below": "\ub4a4\uc5d0 \ud589\uc744 \uc0bd\uc785",
+    "Delete row": "\ud589 \uc0ad\uc81c",
+    "Column": "\uc5f4",
+    "Insert column before": "\uc55e\uc5d0 \uc5f4\uc744 \uc0bd\uc785",
+    "Insert column after": "\ub4a4\uc5d0 \uc5f4\uc744 \uc0bd\uc785",
+    "Delete column": "\uc5f4 \uc0ad\uc81c",
     "Cell": "\uc140",
     "Merge cells": "\uc140 \ud569\uce58\uae30",
     "Horizontal split": "\uc218\ud3c9 \ubd84\ud560",
@@ -231,3 +257,5 @@ $.FE.LANGUAGE['ko'] = {
   },
   direction: "ltr"
 };
+
+}));
