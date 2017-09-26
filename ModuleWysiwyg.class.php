@@ -371,8 +371,24 @@ class ModuleWysiwyg {
 		
 		$iframe = explode("\n",str_replace(array('.'),array('\\.'),$this->getModule()->getConfig('iframe')));
 		$config->set('URI.SafeIframeRegexp', '#^(?:https?:)?//(?:'.implode('|',$iframe).')#');
+
+		$def = $config->getHTMLDefinition(true);
+		$def->addAttribute('img','usemap','CDATA');
 		
+		$map = $def->addElement('map','Block','Flow','Common',array('name'=>'CDATA'));
+		$map->excludes = array('map'=>true);
+
+		$area = $def->addElement('area','Block','Empty','Common',array(
+			'name'=>'CDATA','alt'=>'Text','coords'=>'CDATA','accesskey'=>'Character','nohref'=>new HTMLPurifier_AttrDef_Enum(array('nohref')),'href'=>'URI','shape'=>new HTMLPurifier_AttrDef_Enum(array('rect','circle','poly','default')),'tabindex'=>'Number','target'=>new HTMLPurifier_AttrDef_Enum(array('_blank','_self','_target','_top'))
+		));
+		$area->excludes = array('area'=>true);
+
+		$def->addElement('iframe','Inline','Flow','Common',array(
+			'src'=>'URI#embedded','width'=>'Length','height'=>'Length','name'=>'ID','scrolling'=>'Enum#yes,no,auto','frameborder'=>'Enum#0,1','allowfullscreen'=>'Enum#,0,1','webkitallowfullscreen'=>'Enum#,0,1','mozallowfullscreen'=>'Enum#,0,1','longdesc'=>'URI','marginheight'=>'Pixels','marginwidth'=>'Pixels'
+		));
+
 		$this->_HTMLPurifier = new HTMLPurifier($config);
+		
 		return $this->_HTMLPurifier;
 	}
 	
