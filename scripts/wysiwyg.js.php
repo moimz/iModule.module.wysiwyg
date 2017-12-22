@@ -14,19 +14,31 @@ foreach ($plugins as $plugin) {
 	$.fn.wysiwyg = function(isReload) {
 		var $textarea = this;
 		var module = $textarea.attr("data-wysiwyg-module");
-		var allowUpload = $textarea.attr("data-wysiwyg-uploader") == "TRUE";
+		var fileUpload = $textarea.attr("data-wysiwyg-file-upload") == "TRUE";
+		var imageUpload = $textarea.attr("data-wysiwyg-image-upload") == "TRUE";
 		
-		if (allowUpload == true) {
-			var plugins = ["align","codeView","colors","file","fontSize","image","lineBreaker","link","lists","paragraphFormat","insertCode","table","url","video"];
-		} else {
-			var plugins = ["align","codeView","colors","fontSize","lineBreaker","link","lists","paragraphFormat","table","url","video"];
-		}
+		var plugins = ["align","codeView","colors","fontSize","lineBreaker","link","lists","paragraphFormat","table","url","video"];
+		
+		if (fileUpload == true) plugins.push("file");
+		if (imageUpload == true) plugins.push("image");
 		
 		/**
 		 * 에디터와 연계된 업로더가 존재하지 않을 경우 기본 위지윅에디터 업로더를 사용한다.
 		 */
 		if ($("div[data-module=attachment][data-uploader-wysiwyg=TRUE][data-uploader-module="+module+"][data-uploader-target="+$textarea.attr("name")+"]").length == 0) {
 			$textarea.data("uploader",false);
+			
+			$textarea.on("froalaEditor.image.uploaded",function(e,editor,image) {
+				image = JSON.parse(image);
+				var $form = $(this).parents("form");
+				$form.append($("<input>").attr("type","hidden").attr("name",$(this).attr("name")+"_files[]").val(image.code));
+			});
+			
+			$textarea.on("froalaEditor.file.uploaded",function(e,editor,file) {
+				file = JSON.parse(file);
+				var $form = $(this).parents("form");
+				$form.append($("<input>").attr("type","hidden").attr("name",$(this).attr("name")+"_files[]").val(file.code));
+			});
 		} else {
 			$textarea.data("uploader",$("div[data-module=attachment][data-uploader-wysiwyg=TRUE][data-uploader-module="+module+"][data-uploader-target="+$textarea.attr("name")+"]"));
 			
@@ -90,12 +102,19 @@ foreach ($plugins as $plugin) {
 			});
 		}
 		
+		$textarea.on("froalaEditor.image.inserted",function(e,editor,$image,response) {
+			if (response) {
+				$image.attr("data-code",null);
+			}
+		});
+		
 		$textarea.on("froalaEditor.file.inserted",function(e,editor,$file,response) {
 			if (response) {
 				var result = typeof response == "object" ? response : JSON.parse(response);
 				if (result.idx) {
 					$file.attr("data-idx",result.idx);
 				}
+				$file.attr("data-code",null);
 			}
 		});
 		

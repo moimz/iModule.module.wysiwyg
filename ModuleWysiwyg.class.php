@@ -41,7 +41,9 @@ class ModuleWysiwyg {
 	private $_height = 300;
 	private $_hideButtons = array();
 	private $_toolBarFixed = true;
-	private $_uploader = true;
+	private $_fileUpload = true;
+	private $_imageUpload = true;
+	private $_files = array();
 	
 	/**
 	 * HTMLPurifier
@@ -210,7 +212,9 @@ class ModuleWysiwyg {
 		$this->_required = false;
 		$this->_theme = 'white';
 		$this->_hideButtons = array();
-		$this->_uploader = true;
+		$this->_fileUpload = true;
+		$this->_imageUpload = true;
+		$this->_files = array();
 	}
 	
 	/**
@@ -264,15 +268,13 @@ class ModuleWysiwyg {
 		return $this;
 	}
 	
-	
-	function loadFile($files=array()) {
-		$this->_attachment->loadFile($files);
-		
-		return $this;
-	}
-	
 	function setContent($content) {
-		$this->_content = $this->decodeContent($content,false);
+		if (is_object($content) == true) {
+			$this->_content = $this->decodeContent($content->text,false);
+			$this->_files = $content->files;
+		} else {
+			$this->_content = $this->decodeContent($content,false);
+		}
 		
 		return $this;
 	}
@@ -299,8 +301,14 @@ class ModuleWysiwyg {
 		return $this;
 	}
 	
-	function setUploader($uploader) {
-		$this->_uploader = $uploader;
+	function setFileUpload($uploadFile) {
+		$this->_fileUpload = $uploadFile;
+		
+		return $this;
+	}
+	
+	function getImageUpload($uploadImage) {
+		$this->_imageUpload = $uploadImage;
 		
 		return $this;
 	}
@@ -335,9 +343,13 @@ class ModuleWysiwyg {
 		$this->_name = $this->_name == null ? 'content' : $this->_name;
 		
 		$wysiwyg = PHP_EOL.'<div data-role="module" data-module="wysiwyg">'.PHP_EOL;
-		$wysiwyg.= '<textarea id="'.$this->_id.'" name="'.$this->_name.'" data-wysiwyg="TRUE" data-wysiwyg-module="'.$this->_module.'" data-wysiwyg-uploader="'.($this->_uploader == true ? 'TRUE' : 'FALSE').'" data-wysiwyg-minHeight="'.$this->_height.'"'.($this->_required == true ? ' data-wysiwyg-required="required"' : '').''.($this->_placeholderText != null ? ' placeholder="'.$this->_placeholderText.'"' : '').'>'.($this->_content !== null ? $this->_content : '').'</textarea>'.PHP_EOL;
+		$wysiwyg.= '<textarea id="'.$this->_id.'" name="'.$this->_name.'" data-wysiwyg="TRUE" data-wysiwyg-module="'.$this->_module.'" data-wysiwyg-file-upload="'.($this->_fileUpload == true ? 'TRUE' : 'FALSE').'" data-wysiwyg-image-upload="'.($this->_imageUpload == true ? 'TRUE' : 'FALSE').'" data-wysiwyg-minHeight="'.$this->_height.'"'.($this->_required == true ? ' data-wysiwyg-required="required"' : '').''.($this->_placeholderText != null ? ' placeholder="'.$this->_placeholderText.'"' : '').'>'.($this->_content !== null ? $this->_content : '').'</textarea>'.PHP_EOL;
 		$wysiwyg.= '<script>$(document).ready(function() { $("#'.$this->_id.'").wysiwyg(); });</script>'.PHP_EOL;
 		$wysiwyg.= '</div>'.PHP_EOL;
+		
+		foreach ($this->_files as $file) {
+			$wysiwyg.= '<input type="hidden" name="'.$this->_name.'_files[]" value="'.Encoder($file).'">'.PHP_EOL;
+		}
 		
 		$this->reset();
 		
@@ -393,18 +405,44 @@ class ModuleWysiwyg {
 	}
 	
 	/**
+	 * 위지윅에디터에서 넘어온 내용을 가져온다.
+	 *
+	 * @param string $name 위지윅에디터 이름
+	 * @return string $content 정리된 위지윅에디터 내용 HTML
+	 */
+	function getContent($name,$is_json=true) {
+		$content = Request($name);
+		$files = Request($name.'_files');
+		
+		$data = new stdClass();
+		$data->text = $this->encodeContent($content,$files,true);
+		$data->files = $files;
+		
+		return $is_json == true ? json_encode($data,JSON_UNESCAPED_UNICODE | JSON_NUMERIC_CHECK) : $data;
+	}
+	
+	/**
 	 * 위지윅에디터의 내용을 정리한다.
 	 *
 	 * @param string $content 위지윅에디터 내용 HTML
 	 * @param object[] $attachments 위지윅에디터에 포함된 첨부파일 배열
 	 * @return string $content 정리된 위지윅에디터 내용 HTML
 	 */
-	function encodeContent($content,&$attachments=array()) {
+	function encodeContent($content,&$attachments=array(),$autoRemove=false) {
+		$inserted = array();
+		
+		for ($i=0, $loop=count($attachments);$i<$loop;$i++) {
+			if (is_numeric($attachments[$i]) == false) {
+				$attachments[$i] = Decoder($attachments[$i]);
+			}
+		}
+		
 		if (preg_match_all('/<img([^>]*)data-idx="([0-9]+)"([^>]*)>/',$content,$match,PREG_SET_ORDER) == true) {
 			for ($i=0, $loop=count($match);$i<$loop;$i++) {
 				if (in_array($match[$i][2],$attachments) == true) {
 					$image = preg_replace('/ src="(.*?)"/','',$match[$i][0]);
 					$content = str_replace($match[$i][0],$image,$content);
+					$inserted[] = $match[$i][2];
 				} else {
 					$file = $this->IM->getModule('attachment')->getFileInfo($match[$i][2]);
 					if ($file == null) {
@@ -415,6 +453,7 @@ class ModuleWysiwyg {
 						$image = str_replace('data-idx="'.$match[$i][2].'"','data-idx="'.$fileIdx.'"',$image);
 						$content = str_replace($match[$i][0],$image,$content);
 						$attachments[] = $fileIdx;
+						$inserted[] = $fileIdx;
 					}
 				}
 			}
@@ -425,6 +464,7 @@ class ModuleWysiwyg {
 				if (in_array($match[$i][2],$attachments) == true) {
 					$download = preg_replace('/ href="(.*?)"/','',$match[$i][0]);
 					$content = str_replace($match[$i][0],$download,$content);
+					$inserted[] = $match[$i][2];
 				} else {
 					$file = $this->IM->getModule('attachment')->getFileInfo($match[$i][2]);
 					if ($file == null) {
@@ -435,9 +475,22 @@ class ModuleWysiwyg {
 						$download = str_replace('data-idx="'.$match[$i][2].'"','data-idx="'.$fileIdx.'"',$image);
 						$content = str_replace($match[$i][0],$download,$content);
 						$attachments[] = $fileIdx;
+						$inserted[] = $fileIdx;
 					}
 				}
 			}
+		}
+		
+		if ($autoRemove == true) {
+			foreach ($attachments as $attachment) {
+				if (in_array($attachment,$inserted) == true) {
+					$this->IM->getModule('attachment')->filePublish($attachment);
+				} else {
+					$this->IM->getModule('attachment')->fileDelete($attachment);
+				}
+			}
+			
+			$attachments = $inserted;
 		}
 		
 		return $content;
