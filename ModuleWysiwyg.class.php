@@ -347,8 +347,10 @@ class ModuleWysiwyg {
 		$wysiwyg.= '<script>$(document).ready(function() { $("#'.$this->_id.'").wysiwyg(); });</script>'.PHP_EOL;
 		$wysiwyg.= '</div>'.PHP_EOL;
 		
-		foreach ($this->_files as $file) {
-			$wysiwyg.= '<input type="hidden" name="'.$this->_name.'_files[]" value="'.Encoder($file).'">'.PHP_EOL;
+		if (is_array($this->_files) == true) {
+			foreach ($this->_files as $file) {
+				$wysiwyg.= '<input type="hidden" name="'.$this->_name.'_files[]" value="'.Encoder($file).'">'.PHP_EOL;
+			}
 		}
 		
 		$this->reset();
@@ -481,7 +483,7 @@ class ModuleWysiwyg {
 			}
 		}
 		
-		if ($autoRemove == true) {
+		if ($autoRemove == true && is_array($attachments) == true) {
 			foreach ($attachments as $attachment) {
 				if (in_array($attachment,$inserted) == true) {
 					$this->IM->getModule('attachment')->filePublish($attachment);
