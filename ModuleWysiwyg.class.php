@@ -9,7 +9,8 @@
  * @file /modules/wysiwyg/ModuleWyiswyg.class.php
  * @author Arzz (arzz@arzz.com)
  * @license MIT License
- * @version 3.0.0.161211
+ * @version 3.0.0
+ * @modified 2018. 3. 3.
  */
 class ModuleWysiwyg {
 	/**
@@ -44,6 +45,7 @@ class ModuleWysiwyg {
 	private $_fileUpload = true;
 	private $_imageUpload = true;
 	private $_files = array();
+	private $_disabled = false;
 	
 	/**
 	 * HTMLPurifier
@@ -215,6 +217,7 @@ class ModuleWysiwyg {
 		$this->_fileUpload = true;
 		$this->_imageUpload = true;
 		$this->_files = array();
+		$this->__disabled = false;
 	}
 	
 	/**
@@ -335,8 +338,13 @@ class ModuleWysiwyg {
 	
 	/**
 	 * 위지윅 에디터를 가져온다.
+	 *
+	 * @return string $html 위지윅에디터 HTML
 	 */
 	function get() {
+		if ($this->_disabled == true) {
+			return '<textarea id="'.$this->_id.'" name="'.$this->_name.'" data-wysiwyg="FALSE"'.($this->_required == true ? ' data-required="required"' : '').''.($this->_placeholderText != null ? ' placeholder="'.$this->_placeholderText.'"' : '').' style="height:'.$this->_height.'px;">'.($this->_content !== null ? $this->_content : '').'</textarea>';
+		}
 		$this->preload();
 		
 		$this->_id = $this->_id == null ? uniqid('wysiwyg-') : $this->_id;
@@ -356,6 +364,23 @@ class ModuleWysiwyg {
 		$this->reset();
 		
 		return $wysiwyg;
+	}
+	
+	/**
+	 * 위지윅 에디터를 비활성화한다.
+	 *
+	 * @return ModuleWysiwyg $this
+	 */
+	function disable() {
+		$this->_disabled = true;
+		return $this;
+	}
+	
+	/**
+	 * 위지윅 에디터를 출력한다.
+	 */
+	function doLayout() {
+		echo $this->get();
 	}
 	
 	/**
