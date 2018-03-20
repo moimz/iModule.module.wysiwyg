@@ -25,8 +25,8 @@
 	"article":false,
 	"configs":{
 		"iframe":{
-			"type":"longtext",
-			"value":"www.youtube.com\nmaps.google.com\nplayer.vimeo.com\napi.daum.net\ntvpot.daum.net\nv.nate.com\nchannel.pandora.tv\nplay.pullbbang.com\nwww.slideshare.net"
+			"type":"string",
+			"default":"www.youtube.com\nmaps.google.com\nplayer.vimeo.com\napi.daum.net\ntvpot.daum.net\nv.nate.com\nchannel.pandora.tv\nplay.pullbbang.com\nwww.slideshare.net"
 		}
 	}
 }
