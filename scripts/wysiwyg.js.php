@@ -13,11 +13,21 @@
  * @modified 2018. 3. 23.
  */
 header("Content-Type: application/x-javascript; charset=utf-8");
-readfile(__DIR__.'/froala_editor.min.js');
+
+echo PHP_EOL.'/* froala_editor.min.js */'.PHP_EOL;
+readfile(__DIR__.'/froala_editor/froala_editor.min.js');
+
+echo PHP_EOL.'/* codemirror.js */'.PHP_EOL;
+readfile(__DIR__.'/codemirror/codemirror.js');
+
+echo PHP_EOL.'/* xml.js */'.PHP_EOL;
+readfile(__DIR__.'/codemirror/mode/xml.js');
+
 $plugins = array('align','code_view','colors','file','font_size','image','line_breaker','link','insert_code','lists','paragraph_format','table','url','video');
 foreach ($plugins as $plugin) {
-	if (is_file(__DIR__.'/plugins/'.$plugin.'.min.js') == true) {
-		readfile(__DIR__.'/plugins/'.$plugin.'.min.js');
+	if (is_file(__DIR__.'/froala_editor/plugins/'.$plugin.'.min.js') == true) {
+		echo PHP_EOL.'/* '.$plugin.'.min.js */'.PHP_EOL;
+		readfile(__DIR__.'/froala_editor/plugins/'.$plugin.'.min.js');
 	}
 }
 ?>
@@ -131,7 +141,7 @@ foreach ($plugins as $plugin) {
 		
 		if ($textarea.is("div") == true) {
 			var toolbarInline = true;
-			var toolbarButtons = ["bold","italic","underline","strikeThrough","color","emoticons","-","paragraphFormat","align","formatOL","formatUL","indent","outdent","-","insertImage","insertLink","insertFile","insertVideo","undo","redo"];
+			var toolbarButtons = ["html","bold","italic","underline","strikeThrough","color","emoticons","-","paragraphFormat","align","formatOL","formatUL","indent","outdent","-","insertImage","insertLink","insertFile","insertVideo","undo","redo"];
 			var toolbarButtonsXS = toolbarButtons;
 			var toolbarButtonsMD = toolbarButtons;
 			var toolbarButtonsSM = toolbarButtons;
@@ -149,6 +159,14 @@ foreach ($plugins as $plugin) {
 		
 		$textarea.froalaEditor({
 			key:"pFOFSAGLUd1AVKg1SN==", // Froala Wysiwyg OEM License Key For MoimzTools Only
+			codeMirrorOptions:{
+				indentWithTabs:true,
+				lineNumbers:true,
+				lineWrapping:true,
+				mode:"text/html",
+				tabMode:"indent",
+				tabSize:4
+			},
 			toolbarInline:toolbarInline,
 			pluginsEnabled:plugins,
 			heightMin:parseInt($textarea.attr("data-wysiwyg-minHeight")),
@@ -160,6 +178,7 @@ foreach ($plugins as $plugin) {
 			imageUploadParams:{module:module,target:$textarea.attr("name"),wyswiyg:"TRUE"},
 			fileUploadURL:ENV.getProcessUrl("attachment","wysiwyg"),
 			fileUploadParams:{module:module,target:$textarea.attr("name"),wysiwyg:"TRUE"},
+			videoUpload:false, // @todo Youtube API
 			toolbarStickyOffset:$("#iModuleNavigation").outerHeight(true),
 			placeholderText:$textarea.attr("placeholder") ? $textarea.attr("placeholder") : "Type something",
 			imageEditButtons:["imageAlign","imageLink","linkOpen","linkEdit","linkRemove","imageDisplay","imageStyle","imageAlt","imageSize"],
