@@ -17,13 +17,7 @@ header("Content-Type: application/x-javascript; charset=utf-8");
 echo PHP_EOL.'/* froala_editor.min.js */'.PHP_EOL;
 readfile(__DIR__.'/froala_editor/froala_editor.min.js');
 
-echo PHP_EOL.'/* codemirror.js */'.PHP_EOL;
-readfile(__DIR__.'/codemirror/codemirror.js');
-
-echo PHP_EOL.'/* xml.js */'.PHP_EOL;
-readfile(__DIR__.'/codemirror/mode/xml.js');
-
-$plugins = array('align','code_view','colors','file','font_size','image','line_breaker','link','insert_code','lists','paragraph_format','table','url','video');
+$plugins = array('align','code_view','code_beautifier','colors','file','font_size','image','line_breaker','link','insert_code','lists','paragraph_format','table','url','video');
 foreach ($plugins as $plugin) {
 	if (is_file(__DIR__.'/froala_editor/plugins/'.$plugin.'.min.js') == true) {
 		echo PHP_EOL.'/* '.$plugin.'.min.js */'.PHP_EOL;
@@ -38,7 +32,7 @@ foreach ($plugins as $plugin) {
 		var fileUpload = $textarea.attr("data-wysiwyg-file-upload") == "TRUE";
 		var imageUpload = $textarea.attr("data-wysiwyg-image-upload") == "TRUE";
 		
-		var plugins = ["align","codeView","colors","fontSize","lineBreaker","link","lists","paragraphFormat","table","url","video"];
+		var plugins = ["align","codeView","colors","fontSize","lineBreaker","link","lists","paragraphFormat","table","url","video","codeBeautifier"];
 		
 		if (fileUpload == true) plugins.push("file");
 		if (imageUpload == true) plugins.push("image");
@@ -159,6 +153,7 @@ foreach ($plugins as $plugin) {
 		
 		$textarea.froalaEditor({
 			key:"pFOFSAGLUd1AVKg1SN==", // Froala Wysiwyg OEM License Key For MoimzTools Only
+			codeMirror:window.CodeMirror,
 			codeMirrorOptions:{
 				indentWithTabs:true,
 				lineNumbers:true,
@@ -169,6 +164,7 @@ foreach ($plugins as $plugin) {
 			},
 			toolbarInline:toolbarInline,
 			pluginsEnabled:plugins,
+			multiLine:true,
 			heightMin:parseInt($textarea.attr("data-wysiwyg-minHeight")),
 			fontSize:["8","9","10","11","12","14","18","24"],
 			paragraphFormat:{N:"Normal",H1:"Heading 1",H2:"Heading 2",H3:"Heading 3"},

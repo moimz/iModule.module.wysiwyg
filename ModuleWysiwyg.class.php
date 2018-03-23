@@ -46,6 +46,7 @@ class ModuleWysiwyg {
 	private $_imageUpload = true;
 	private $_files = array();
 	private $_disabled = false;
+	private $_codeMirror = array('xml');
 	
 	/**
 	 * HTMLPurifier
@@ -329,11 +330,36 @@ class ModuleWysiwyg {
 	}
 	
 	/**
+	 * CodeMirror 의 모드를 추가한다.
+	 *
+	 * @param string $mode 추가할 모드명
+	 * @return $this
+	 */
+	function addCodeMirrorMode($mode) {
+		$this->_codeMirror[] = $mode;
+		$this->_codeMirror = array_unique($this->_codeMirror);
+		
+		return $this;
+	}
+	
+	/**
 	 * 위지윅에디터를 사용하기 위한 필수요소를 미리 불러온다.
 	 */
 	function preload() {
 		$this->IM->addHeadResource('script',$this->getModule()->getDir().'/scripts/wysiwyg.js.php');
 		$this->IM->addHeadResource('style',$this->getModule()->getDir().'/styles/wysiwyg.css.php?theme='.$this->_theme);
+	}
+	
+	/**
+	 * CodeMirror 라이브러리를 불러온다.
+	 */
+	function loadCodeMirror() {
+		$this->IM->addHeadResource('script',$this->getModule()->getDir().'/scripts/codemirror/codemirror.js');
+		$this->IM->addHeadResource('style',$this->getModule()->getDir().'/styles/codemirror/codemirror.css');
+		
+		foreach ($this->_codeMirror as $mode) {
+			$this->IM->addHeadResource('script',$this->getModule()->getDir().'/scripts/codemirror/mode/'.$mode.'.js');
+		}
 	}
 	
 	/**
@@ -343,6 +369,7 @@ class ModuleWysiwyg {
 	 */
 	function get($is_inline=false) {
 		$this->preload();
+		$this->loadCodeMirror();
 		
 		$this->_id = $this->_id == null ? uniqid('wysiwyg-') : $this->_id;
 		$this->_name = $this->_name == null ? 'content' : $this->_name;

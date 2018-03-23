@@ -26,9 +26,6 @@ foreach ($plugins as $plugin) {
 		readfile(__DIR__.'/froala_editor/plugins/'.$plugin.'.min.css');
 	}
 }
-
-echo PHP_EOL.'/* codemirror.css */'.PHP_EOL;
-readfile(__DIR__.'/codemirror/codemirror.css');
 ?>
 .fr-box h1 {font-size:17px; font-weight:bold; font-family:inherit;}
 .fr-box h2 {font-size:15px; font-weight:bold; font-family:inherit;}
@@ -51,12 +48,13 @@ readfile(__DIR__.'/codemirror/codemirror.css');
 .fr-view {line-height:1.6;}
 .fr-dropdown-list li {font-size:13px !important;}
 .fr-dropdown-list li a {padding:3px 15px !important;}
-.fr-popup {border-top:3px solid #222 !important; margin-top:7px !important; border-radius:0px !important;}
+.fr-popup {border-top:2px solid #222 !important; margin-top:7px !important; border-radius:0px !important;}
 .fr-popup .fr-arrow {top:-7px !important;}
-.fr-above {border-top:0 !important; border-bottom:3px solid #222 !important; margin-top:0 !important; border-radius:0px !important;}
-.fr-above .fr-arrow {top:auto !important; bottom:-7px !important;}
+.fr-above {border-top:0 !important; border-bottom:2px solid #222 !important; margin-top:0 !important; border-radius:0px !important;}
 .fr-popup .fr-color-hex-layer {width:244px;}
 .fr-popup .fr-color-set {margin:10px 10px 0px 10px; width:224px;}
+.fr-inline .fr-arrow {top:-7px !important;}
+.fr-above .fr-arrow {top:auto !important; bottom:-7px !important;}
 
 div[data-module=wysiwyg].error .fr-toolbar.fr-top {border-top-color:#f44336 !important; box-shadow:0px 1px 3px rgba(244,67,54,.3), 0 1px 1px 1px rgba(244,67,54,.3);}
 div[data-module=wysiwyg].error .fr-box.fr-basic.fr-top .fr-wrapper {box-shadow:0 1px 3px rgba(244,67,54,.3),0 1px 1px 1px rgba(244,67,54,.3)}
