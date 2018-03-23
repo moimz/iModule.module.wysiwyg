@@ -164,7 +164,6 @@ foreach ($plugins as $plugin) {
 			},
 			toolbarInline:toolbarInline,
 			pluginsEnabled:plugins,
-			multiLine:true,
 			heightMin:parseInt($textarea.attr("data-wysiwyg-minHeight")),
 			fontSize:["8","9","10","11","12","14","18","24"],
 			paragraphFormat:{N:"Normal",H1:"Heading 1",H2:"Heading 2",H3:"Heading 3"},
@@ -183,7 +182,8 @@ foreach ($plugins as $plugin) {
 			toolbarButtonsMD:toolbarButtonsMD,
 			toolbarButtonsSM:toolbarButtonsSM,
 			pasteDeniedTags:pasteDeniedTags,
-			pasteDeniedAttrs:pasteDeniedAttrs
+			pasteDeniedAttrs:pasteDeniedAttrs,
+			tableInsertHelperOffset:25
 		});
 	};
 })(jQuery);
