@@ -1,8 +1,19 @@
 <?php
+/**
+ * 이 파일은 iModule 위지윅에디터모듈의 일부입니다. (https://www.imodule.kr)
+ *
+ * 위지윅에디터 스크립트를 생성한다.
+ * 위지윅에디터모듈에 포함된 Froala Wysiwyg Editor (https://froala.com/wysiwyg-editor) 는 iModule 내에서 자유롭게 사용할 수 있도록 라이센싱되어 있습니다.
+ * iModule 외부에서 Froala Wysiwyg Editor 사용시 라이센스 위반이므로 주의하시기 바랍니다.
+ * 
+ * @file /modules/wysiwyg/scripts/wysiwyg.js.php
+ * @author Arzz (arzz@arzz.com)
+ * @license MIT License
+ * @version 3.0.0
+ * @modified 2018. 3. 23.
+ */
 header("Content-Type: application/x-javascript; charset=utf-8");
-
 readfile(__DIR__.'/froala_editor.min.js');
-
 $plugins = array('align','code_view','colors','file','font_size','image','line_breaker','link','insert_code','lists','paragraph_format','table','url','video');
 foreach ($plugins as $plugin) {
 	if (is_file(__DIR__.'/plugins/'.$plugin.'.min.js') == true) {
@@ -118,8 +129,27 @@ foreach ($plugins as $plugin) {
 			}
 		});
 		
+		if ($textarea.is("div") == true) {
+			var toolbarInline = true;
+			var toolbarButtons = ["bold","italic","underline","strikeThrough","color","emoticons","-","paragraphFormat","align","formatOL","formatUL","indent","outdent","-","insertImage","insertLink","insertFile","insertVideo","undo","redo"];
+			var toolbarButtonsXS = toolbarButtons;
+			var toolbarButtonsMD = toolbarButtons;
+			var toolbarButtonsSM = toolbarButtons;
+			var pasteDeniedTags = [];
+			var pasteDeniedAttrs = [];
+		} else {
+			var toolbarInline = false;
+			var toolbarButtons = ["html","|","bold","italic","underline","|","paragraphFormat","fontSize","color","|","align","formatOL","formatUL","|","insertLink","insertTable","insertImage","insertFile","insertVideo","insertCode"];
+			var toolbarButtonsXS = ["bold","italic","underline","|","paragraphFormat","fontSize","color","|","align","formatOL","formatUL","|","insertLink","insertImage","insertFile","insertVideo"];
+			var toolbarButtonsMD = ["bold","italic","underline","|","paragraphFormat","fontSize","color","|","align","formatOL","formatUL","|","insertLink","insertImage","insertFile","insertVideo"];
+			var toolbarButtonsSM = ["bold","italic","underline","|","paragraphFormat","fontSize","color","|","align","formatOL","formatUL","|","insertLink","insertImage","insertFile","insertVideo"];
+			var pasteDeniedTags = ["abbr","address","article","aside","audio","base","bdi","bdo","blockquote","button","canvas","caption","cite","code","col","colgroup","datalist","dd","del","details","dfn","dialog","div","dl","dt","em","embed","fieldset","figcaption","figure","footer","form","header","hgroup","iframe","input","ins","kbd","keygen","label","legend","link","main","mark","menu","menuitem","meter","nav","noscript","object","optgroup","option","output","param","pre","progress","queue","rp","rt","ruby","s","samp","script","style","section","select","small","source","span","strike","strong","summary","textarea","time","title","tr","track","var","video","wbr"];
+			var pasteDeniedAttrs = ["class","id","style"];
+		}
+		
 		$textarea.froalaEditor({
 			key:"pFOFSAGLUd1AVKg1SN==", // Froala Wysiwyg OEM License Key For MoimzTools Only
+			toolbarInline:toolbarInline,
 			pluginsEnabled:plugins,
 			heightMin:parseInt($textarea.attr("data-wysiwyg-minHeight")),
 			fontSize:["8","9","10","11","12","14","18","24"],
@@ -133,13 +163,12 @@ foreach ($plugins as $plugin) {
 			toolbarStickyOffset:$("#iModuleNavigation").outerHeight(true),
 			placeholderText:$textarea.attr("placeholder") ? $textarea.attr("placeholder") : "Type something",
 			imageEditButtons:["imageAlign","imageLink","linkOpen","linkEdit","linkRemove","imageDisplay","imageStyle","imageAlt","imageSize"],
-			toolbarButtons:["html","|","bold","italic","underline","|","paragraphFormat","fontSize","color","|","align","formatOL","formatUL","|","insertLink","insertTable","insertImage","insertFile","insertVideo","insertCode"],
-			toolbarButtonsXS:["bold","italic","underline","|","paragraphFormat","fontSize","color","|","align","formatOL","formatUL","|","insertLink","insertImage","insertFile","insertVideo"],
-			toolbarButtonsMD:["bold","italic","underline","|","paragraphFormat","fontSize","color","|","align","formatOL","formatUL","|","insertLink","insertImage","insertFile","insertVideo"],
-			toolbarButtonsSM:["bold","italic","underline","|","paragraphFormat","fontSize","color","|","align","formatOL","formatUL","|","insertLink","insertImage","insertFile","insertVideo"],
-			
-			pasteDeniedTags:["abbr","address","article","aside","audio","base","bdi","bdo","blockquote","button","canvas","caption","cite","code","col","colgroup","datalist","dd","del","details","dfn","dialog","div","dl","dt","em","embed","fieldset","figcaption","figure","footer","form","header","hgroup","iframe","input","ins","kbd","keygen","label","legend","link","main","mark","menu","menuitem","meter","nav","noscript","object","optgroup","option","output","param","pre","progress","queue","rp","rt","ruby","s","samp","script","style","section","select","small","source","span","strike","strong","summary","textarea","time","title","tr","track","var","video","wbr"],
-			pasteDeniedAttrs:["class","id","style"]
+			toolbarButtons:toolbarButtons,
+			toolbarButtonsXS:toolbarButtonsXS,
+			toolbarButtonsMD:toolbarButtonsMD,
+			toolbarButtonsSM:toolbarButtonsSM,
+			pasteDeniedTags:pasteDeniedTags,
+			pasteDeniedAttrs:pasteDeniedAttrs
 		});
 	};
 })(jQuery);

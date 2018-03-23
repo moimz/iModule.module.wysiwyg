@@ -1,6 +1,16 @@
 <?php
+/**
+ * 이 파일은 iModule 위지윅에디터모듈의 일부입니다. (https://www.imodule.kr)
+ *
+ * 위지윅에디터 스타일시트를 생성한다.
+ * 
+ * @file /modules/wysiwyg/styles/wysiwyg.css.php
+ * @author Arzz (arzz@arzz.com)
+ * @license MIT License
+ * @version 3.0.0
+ * @modified 2018. 3. 23.
+ */
 header("Content-Type: text/css; charset=utf-8");
-
 readfile(__DIR__.'/froala_editor.min.css');
 if (isset($_GET['theme']) == true && is_file(__DIR__.'/themes/'.$_GET['theme'].'.css') == true) {
 	readfile(__DIR__.'/themes/'.$_GET['theme'].'.css');
@@ -23,7 +33,6 @@ foreach ($plugins as $plugin) {
 .fr-box table thead tr {border-bottom:2px solid #252525}
 .fr-box table thead th {background:#e6e6e6; border:1px solid #dddddd; padding:2px 5px;}
 .fr-box table tbody td {border:1px solid #dddddd; padding:2px 5px; vertical-align:middle; }
-.fr-box pre {background:#f4f4f4; border:1px solid #ddd; border-radius:5px; font-family:Menlo, Monaco, monospace, sans-serif; padding:10px; margin:10px 0px;}
 .fr-box .fr-file {display:inline-block; border:1px solid #ddd; border-radius:5px; color:#000; text-decoration:none; vertial-align:middle; padding:5px 10px 5px 30px; background:url(../images/download.png) no-repeat 10px 50%; background-size:14px 14px;}
 .fr-box .fr-file:hover {background-color:rgba(0,0,0,0.1);}
 .fr-box .fr-file > i.size {display:inline-block; padding-left:5px; color:#666; font-style:normal;}

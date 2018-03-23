@@ -10,7 +10,7 @@
  * @author Arzz (arzz@arzz.com)
  * @license MIT License
  * @version 3.0.0
- * @modified 2018. 3. 3.
+ * @modified 2018. 3. 23.
  */
 class ModuleWysiwyg {
 	/**
@@ -341,17 +341,24 @@ class ModuleWysiwyg {
 	 *
 	 * @return string $html 위지윅에디터 HTML
 	 */
-	function get() {
-		if ($this->_disabled == true) {
-			return '<textarea id="'.$this->_id.'" name="'.$this->_name.'" data-wysiwyg="FALSE"'.($this->_required == true ? ' data-required="required"' : '').''.($this->_placeholderText != null ? ' placeholder="'.$this->_placeholderText.'"' : '').' style="height:'.$this->_height.'px;">'.($this->_content !== null ? $this->_content : '').'</textarea>';
-		}
+	function get($is_inline=false) {
 		$this->preload();
 		
 		$this->_id = $this->_id == null ? uniqid('wysiwyg-') : $this->_id;
 		$this->_name = $this->_name == null ? 'content' : $this->_name;
 		
+		if ($this->_disabled == true) {
+			if ($is_inline == true) return '<div id="'.$this->_id.'">'.($this->_content !== null ? $this->_content : '').'</div>';
+			else return '<textarea id="'.$this->_id.'" name="'.$this->_name.'" data-wysiwyg="FALSE"'.($this->_required == true ? ' data-required="required"' : '').''.($this->_placeholderText != null ? ' placeholder="'.$this->_placeholderText.'"' : '').' style="height:'.$this->_height.'px;">'.($this->_content !== null ? $this->_content : '').'</textarea>';
+		}
+		
 		$wysiwyg = PHP_EOL.'<div data-role="module" data-module="wysiwyg">'.PHP_EOL;
-		$wysiwyg.= '<textarea id="'.$this->_id.'" name="'.$this->_name.'" data-wysiwyg="TRUE" data-wysiwyg-module="'.$this->_module.'" data-wysiwyg-file-upload="'.($this->_fileUpload == true ? 'TRUE' : 'FALSE').'" data-wysiwyg-image-upload="'.($this->_imageUpload == true ? 'TRUE' : 'FALSE').'" data-wysiwyg-minHeight="'.$this->_height.'"'.($this->_required == true ? ' data-wysiwyg-required="required"' : '').''.($this->_placeholderText != null ? ' placeholder="'.$this->_placeholderText.'"' : '').'>'.($this->_content !== null ? $this->_content : '').'</textarea>'.PHP_EOL;
+		
+		if ($is_inline == true) {
+			$wysiwyg.= '<div id="'.$this->_id.'" name="'.$this->_name.'" data-wysiwyg="TRUE" data-wysiwyg-module="'.$this->_module.'" data-wysiwyg-file-upload="'.($this->_fileUpload == true ? 'TRUE' : 'FALSE').'" data-wysiwyg-image-upload="'.($this->_imageUpload == true ? 'TRUE' : 'FALSE').'">'.($this->_content !== null ? $this->_content : ($this->_placeholderText != null ? $this->_placeholderText : '')).'</div>'.PHP_EOL;
+		} else {
+			$wysiwyg.= '<textarea id="'.$this->_id.'" name="'.$this->_name.'" data-wysiwyg="TRUE" data-wysiwyg-module="'.$this->_module.'" data-wysiwyg-file-upload="'.($this->_fileUpload == true ? 'TRUE' : 'FALSE').'" data-wysiwyg-image-upload="'.($this->_imageUpload == true ? 'TRUE' : 'FALSE').'" data-wysiwyg-minHeight="'.$this->_height.'"'.($this->_required == true ? ' data-wysiwyg-required="required"' : '').''.($this->_placeholderText != null ? ' placeholder="'.$this->_placeholderText.'"' : '').'>'.($this->_content !== null ? $this->_content : '').'</textarea>'.PHP_EOL;
+		}
 		$wysiwyg.= '<script>$(document).ready(function() { $("#'.$this->_id.'").wysiwyg(); });</script>'.PHP_EOL;
 		$wysiwyg.= '</div>'.PHP_EOL;
 		
@@ -379,8 +386,8 @@ class ModuleWysiwyg {
 	/**
 	 * 위지윅 에디터를 출력한다.
 	 */
-	function doLayout() {
-		echo $this->get();
+	function doLayout($is_inline=false) {
+		echo $this->get($is_inline);
 	}
 	
 	/**
