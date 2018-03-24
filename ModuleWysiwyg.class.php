@@ -382,9 +382,9 @@ class ModuleWysiwyg {
 		$wysiwyg = PHP_EOL.'<div data-role="module" data-module="wysiwyg">'.PHP_EOL;
 		
 		if ($is_inline == true) {
-			$wysiwyg.= '<div id="'.$this->_id.'" name="'.$this->_name.'" data-wysiwyg="TRUE" data-wysiwyg-module="'.$this->_module.'" data-wysiwyg-file-upload="'.($this->_fileUpload == true ? 'TRUE' : 'FALSE').'" data-wysiwyg-image-upload="'.($this->_imageUpload == true ? 'TRUE' : 'FALSE').'">'.($this->_content !== null ? $this->_content : ($this->_placeholderText != null ? $this->_placeholderText : '')).'</div>'.PHP_EOL;
+			$wysiwyg.= '<div id="'.$this->_id.'" data-name="'.$this->_name.'" data-wysiwyg="TRUE" data-wysiwyg-module="'.$this->_module.'" data-wysiwyg-file-upload="'.($this->_fileUpload == true ? 'TRUE' : 'FALSE').'" data-wysiwyg-image-upload="'.($this->_imageUpload == true ? 'TRUE' : 'FALSE').'">'.($this->_content !== null ? $this->_content : ($this->_placeholderText != null ? $this->_placeholderText : '')).'</div>'.PHP_EOL;
 		} else {
-			$wysiwyg.= '<textarea id="'.$this->_id.'" name="'.$this->_name.'" data-wysiwyg="TRUE" data-wysiwyg-module="'.$this->_module.'" data-wysiwyg-file-upload="'.($this->_fileUpload == true ? 'TRUE' : 'FALSE').'" data-wysiwyg-image-upload="'.($this->_imageUpload == true ? 'TRUE' : 'FALSE').'" data-wysiwyg-minHeight="'.$this->_height.'"'.($this->_required == true ? ' data-wysiwyg-required="required"' : '').''.($this->_placeholderText != null ? ' placeholder="'.$this->_placeholderText.'"' : '').'>'.($this->_content !== null ? $this->_content : '').'</textarea>'.PHP_EOL;
+			$wysiwyg.= '<textarea id="'.$this->_id.'" name="'.$this->_name.'" data-name="'.$this->_name.'" data-wysiwyg="TRUE" data-wysiwyg-module="'.$this->_module.'" data-wysiwyg-file-upload="'.($this->_fileUpload == true ? 'TRUE' : 'FALSE').'" data-wysiwyg-image-upload="'.($this->_imageUpload == true ? 'TRUE' : 'FALSE').'" data-wysiwyg-minHeight="'.$this->_height.'"'.($this->_required == true ? ' data-wysiwyg-required="required"' : '').''.($this->_placeholderText != null ? ' placeholder="'.$this->_placeholderText.'"' : '').'>'.($this->_content !== null ? $this->_content : '').'</textarea>'.PHP_EOL;
 		}
 		$wysiwyg.= '<script>$(document).ready(function() { $("#'.$this->_id.'").wysiwyg(); });</script>'.PHP_EOL;
 		$wysiwyg.= '</div>'.PHP_EOL;

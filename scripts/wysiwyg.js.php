@@ -135,7 +135,7 @@ foreach ($plugins as $plugin) {
 		
 		if ($textarea.is("div") == true) {
 			var toolbarInline = true;
-			var toolbarButtons = ["html","bold","italic","underline","strikeThrough","color","emoticons","-","paragraphFormat","align","formatOL","formatUL","indent","outdent","-","insertImage","insertLink","insertFile","insertVideo","undo","redo"];
+			var toolbarButtons = ["bold","italic","underline","strikeThrough","fontSize","color","-","paragraphFormat","align","formatOL","formatUL","undo","redo","-","insertImage","insertLink","insertTable","insertFile","insertVideo"];
 			var toolbarButtonsXS = toolbarButtons;
 			var toolbarButtonsMD = toolbarButtons;
 			var toolbarButtonsSM = toolbarButtons;
@@ -163,6 +163,7 @@ foreach ($plugins as $plugin) {
 				tabSize:4
 			},
 			toolbarInline:toolbarInline,
+			toolbarVisibleWithoutSelection:true,
 			pluginsEnabled:plugins,
 			heightMin:parseInt($textarea.attr("data-wysiwyg-minHeight")),
 			fontSize:["8","9","10","11","12","14","18","24"],
