@@ -348,6 +348,7 @@ class ModuleWysiwyg {
 	function preload() {
 		$this->IM->addHeadResource('script',$this->getModule()->getDir().'/scripts/wysiwyg.js.php');
 		$this->IM->addHeadResource('style',$this->getModule()->getDir().'/styles/wysiwyg.css.php?theme='.$this->_theme);
+		$this->loadCodeMirror();
 	}
 	
 	/**
@@ -369,7 +370,6 @@ class ModuleWysiwyg {
 	 */
 	function get($is_inline=false) {
 		$this->preload();
-		$this->loadCodeMirror();
 		
 		$this->_id = $this->_id == null ? uniqid('wysiwyg-') : $this->_id;
 		$this->_name = $this->_name == null ? 'content' : $this->_name;

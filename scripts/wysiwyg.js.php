@@ -141,6 +141,12 @@ foreach ($plugins as $plugin) {
 			var toolbarButtonsSM = toolbarButtons;
 			var pasteDeniedTags = [];
 			var pasteDeniedAttrs = [];
+			
+			$textarea.on("froalaEditor.mousedown",function(e,editor,mouseupEvent) {
+				if (mouseupEvent.originalEvent.button == 2) {
+					$textarea.froalaEditor("toolbar.showInline",e,true);
+				}
+			});
 		} else {
 			var toolbarInline = false;
 			var toolbarButtons = ["html","|","bold","italic","underline","|","paragraphFormat","fontSize","color","|","align","formatOL","formatUL","|","insertLink","insertTable","insertImage","insertFile","insertVideo","insertCode"];
@@ -163,7 +169,7 @@ foreach ($plugins as $plugin) {
 				tabSize:4
 			},
 			toolbarInline:toolbarInline,
-			toolbarVisibleWithoutSelection:true,
+			disableRightClick:true,
 			pluginsEnabled:plugins,
 			heightMin:parseInt($textarea.attr("data-wysiwyg-minHeight")),
 			fontSize:["8","9","10","11","12","14","18","24"],

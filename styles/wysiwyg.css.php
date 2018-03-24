@@ -27,11 +27,11 @@ foreach ($plugins as $plugin) {
 	}
 }
 ?>
-.fr-box h1 {font-size:17px; font-weight:bold; font-family:inherit;}
-.fr-box h2 {font-size:15px; font-weight:bold; font-family:inherit;}
-.fr-box h3 {font-size:13px; font-weight:bold; font-family:inherit;}
-.fr-box ol, .fr-box ul {margin-left:25px; list-style-position:outside;}
-.fr-box ul {list-style-type:disc;}
+.fr-box h1 {font-size:18px; font-weight:bold; font-family:inherit;}
+.fr-box h2 {font-size:16px; font-weight:bold; font-family:inherit;}
+.fr-box h3 {font-size:14px; font-weight:bold; font-family:inherit;}
+.fr-box ol:not([data-role]), .fr-box ul:not([data-role]) {margin-left:25px; list-style-position:outside;}
+.fr-box ul:not([data-role]) {list-style-type:disc;}
 .fr-box label {display:inline !important;}
 .fr-box table {border-collapse:collapse; border-spacing:0; border:1px; empty-cells:show; table-layout:auto; max-width:100%;}
 .fr-box table thead tr {border-bottom:2px solid #252525}
