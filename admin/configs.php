@@ -26,7 +26,6 @@ var config = new Ext.form.Panel({
 				new Ext.form.TextArea({
 					fieldLabel:Wysiwyg.getText("admin/configs/form/iframe"),
 					name:"iframe",
-					height:80,
 					afterBodyEl:'<div class="x-form-help">'+Wysiwyg.getText("admin/configs/form/iframe_help")+'</div>'
 				})
 			]
