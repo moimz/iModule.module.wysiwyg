@@ -431,6 +431,7 @@ class ModuleWysiwyg {
 		$config->set('Cache.SerializerPath',$this->IM->getModule('attachment')->getTempPath(true));
 		$config->set('Attr.EnableID',false);
 		$config->set('Attr.DefaultImageAlt','');
+		$config->set('Attr.AllowedFrameTargets',array('_blank','_self'));
 		$config->set('AutoFormat.Linkify',false);
 		$config->set('HTML.MaxImgLength',null);
 		$config->set('CSS.MaxImgLength',null);
