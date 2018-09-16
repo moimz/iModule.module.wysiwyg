@@ -62,3 +62,7 @@ div[data-module=wysiwyg].success .fr-toolbar.fr-top {border-top-color:#4caf50 !i
 div[data-module=wysiwyg].success .fr-box.fr-basic.fr-top .fr-wrapper {box-shadow:0 1px 3px rgba(76,175,80,.3),0 1px 1px 1px rgba(76,175,80,.3)}
 
 div[data-role=input] > div[data-module=wysiwyg] {margin-top:-10px;}
+
+@media only screen and (max-width:599px) {
+	div[data-role=input] > div[data-module=wysiwyg] {margin-top:0px;}
+}
