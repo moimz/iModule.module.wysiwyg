@@ -145,8 +145,8 @@ foreach ($plugins as $plugin) {
 			var toolbarInline = false;
 			var toolbarButtons = ["html","|","bold","italic","underline","|","paragraphFormat","fontSize","color","|","align","formatOL","formatUL","|","insertLink","insertTable","insertImage","insertFile","insertVideo","insertCode"];
 			var toolbarButtonsXS = ["bold","italic","underline","|","paragraphFormat","fontSize","color","|","align","formatOL","formatUL","|","insertLink","insertImage","insertFile","insertVideo"];
-			var toolbarButtonsMD = ["bold","italic","underline","|","paragraphFormat","fontSize","color","|","align","formatOL","formatUL","|","insertLink","insertImage","insertFile","insertVideo"];
-			var toolbarButtonsSM = ["bold","italic","underline","|","paragraphFormat","fontSize","color","|","align","formatOL","formatUL","|","insertLink","insertImage","insertFile","insertVideo"];
+			var toolbarButtonsMD = ["html","|","bold","italic","underline","|","paragraphFormat","fontSize","color","|","align","formatOL","formatUL","|","insertLink","insertImage","insertFile","insertVideo"];
+			var toolbarButtonsSM = ["html","|","bold","italic","underline","|","paragraphFormat","fontSize","color","|","align","formatOL","formatUL","|","insertLink","insertImage","insertFile","insertVideo"];
 			var pasteDeniedTags = ["abbr","address","article","aside","audio","base","bdi","bdo","blockquote","button","canvas","caption","cite","code","col","colgroup","datalist","dd","del","details","dfn","dialog","div","dl","dt","em","embed","fieldset","figcaption","figure","footer","form","header","hgroup","iframe","input","ins","kbd","keygen","label","legend","link","main","mark","menu","menuitem","meter","nav","noscript","object","optgroup","option","output","param","pre","progress","queue","rp","rt","ruby","s","samp","script","style","section","select","small","source","span","strike","strong","summary","textarea","time","title","tr","track","var","video","wbr"];
 			var pasteDeniedAttrs = ["class","id","style"];
 		}
