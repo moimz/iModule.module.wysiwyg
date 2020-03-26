@@ -10,7 +10,7 @@
  * @author Arzz (arzz@arzz.com)
  * @license MIT License
  * @version 3.0.0
- * @modified 2018. 3. 23.
+ * @modified 2020. 3. 26.
  */
 header("Content-Type: application/x-javascript; charset=utf-8");
 
@@ -152,7 +152,7 @@ foreach ($plugins as $plugin) {
 		}
 		
 		$textarea.froalaEditor({
-			key:"pFOFSAGLUd1AVKg1SN==", // Froala Wysiwyg OEM License Key For MoimzTools Only
+			key:"1G4C2A10A6E5B4gC3E3G3C2B7D5B3F4D2C1zHMDUGENKACTMXQL==", // Froala Wysiwyg OEM License Key For MoimzTools Only
 			codeMirror:window.CodeMirror,
 			codeMirrorOptions:{
 				indentWithTabs:true,
@@ -166,6 +166,7 @@ foreach ($plugins as $plugin) {
 			disableRightClick:toolbarInline,
 			pluginsEnabled:plugins,
 			heightMin:parseInt($textarea.attr("data-wysiwyg-minHeight")),
+			placeholderText:"",
 			fontSize:["8","9","10","11","12","14","18","24"],
 			paragraphFormat:{N:"Normal",H1:"Heading 1",H2:"Heading 2",H3:"Heading 3"},
 			linkEditButtons:["linkOpen","linkEdit","linkRemove"],

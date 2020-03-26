@@ -8,12 +8,13 @@
  * @author Arzz (arzz@arzz.com)
  * @license MIT License
  * @version 3.0.0
- * @modified 2018. 3. 23.
+ * @modified 2020. 3. 26.
  */
 header("Content-Type: text/css; charset=utf-8");
 
-echo PHP_EOL.'/* froala_editor.min.css */'.PHP_EOL;
 readfile(__DIR__.'/froala_editor/froala_editor.min.css');
+
+echo PHP_EOL;
 
 if (isset($_GET['theme']) == true && is_file(__DIR__.'/themes/'.$_GET['theme'].'.css') == true) {
 	readfile(__DIR__.'/froala_editor/themes/'.$_GET['theme'].'.css');
@@ -22,10 +23,12 @@ if (isset($_GET['theme']) == true && is_file(__DIR__.'/themes/'.$_GET['theme'].'
 $plugins = array('align','code_view','colors','file','font_size','image','line_breaker','link','lists','paragraph_format','table','url','video');
 foreach ($plugins as $plugin) {
 	if (is_file(__DIR__.'/froala_editor/plugins/'.$plugin.'.min.css') == true) {
-		echo PHP_EOL.'/* '.$plugin.'.min.css */'.PHP_EOL;
+		echo PHP_EOL;
 		readfile(__DIR__.'/froala_editor/plugins/'.$plugin.'.min.css');
 	}
 }
+
+readfile(__DIR__.'/froala_editor/froala_style.min.css');
 ?>
 .fr-box h1 {font-size:18px; font-weight:bold; font-family:inherit;}
 .fr-box h2 {font-size:16px; font-weight:bold; font-family:inherit;}
