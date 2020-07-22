@@ -570,6 +570,8 @@ class ModuleWysiwyg {
 			for ($i=0, $loop=count($match);$i<$loop;$i++) {
 				$file = $this->IM->getModule('attachment')->getFileInfo($match[$i][2]);
 				if ($file != null) {
+					$match[$i][1] = preg_replace("!src=\"(.*?)\"!is","",$match[$i][1]);
+					$match[$i][3] = preg_replace("!src=\"(.*?)\"!is","",$match[$i][3]);
 					$image = '<img'.$match[$i][1].'data-idx="'.$match[$i][2].'" src="'.$file->path.'"'.$match[$i][3].'>';
 				} else {
 					$image = '';
@@ -582,6 +584,8 @@ class ModuleWysiwyg {
 			for ($i=0, $loop=count($match);$i<$loop;$i++) {
 				$file = $this->IM->getModule('attachment')->getFileInfo($match[$i][2]);
 				if ($file != null) {
+					$match[$i][1] = preg_replace("!href=\"(.*?)\"!is","",$match[$i][1]);
+					$match[$i][3] = preg_replace("!href=\"(.*?)\"!is","",$match[$i][3]);
 					$link = '<a'.$match[$i][1].'data-idx="'.$match[$i][2].'" href="'.$this->IM->getModule('attachment')->getFileInfo($match[$i][2])->download.'"'.$match[$i][3].'>';
 				} else {
 					$link = '';
