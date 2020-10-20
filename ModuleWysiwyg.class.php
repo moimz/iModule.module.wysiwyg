@@ -10,7 +10,7 @@
  * @author Arzz (arzz@arzz.com)
  * @license MIT License
  * @version 3.0.0
- * @modified 2018. 12. 10.
+ * @modified 2020. 10. 20.
  */
 class ModuleWysiwyg {
 	/**
@@ -36,6 +36,7 @@ class ModuleWysiwyg {
 	private $_name = null;
 	private $_module = null;
 	private $_placeholderText = null;
+	private $_title = null;
 	private $_content = null;
 	private $_required = false;
 	private $_theme = 'default';
@@ -211,6 +212,7 @@ class ModuleWysiwyg {
 		$this->_name = null;
 		$this->_placeholderText = null;
 		$this->_module = null;
+		$this->_title = null;
 		$this->_content = null;
 		$this->_required = false;
 		$this->_theme = 'white';
@@ -271,7 +273,25 @@ class ModuleWysiwyg {
 
 		return $this;
 	}
+	
+	/**
+	 * 폼의 제목을 정의한다.
+	 *
+	 * @param string $title 제목
+	 * @return $this
+	 */
+	function setTitle($title) {
+		$this->_title = $title;
 
+		return $this;
+	}
+
+	/**
+	 * 본문 내용을 정의한다.
+	 *
+	 * @param string $content 내용
+	 * @return $this
+	 */
 	function setContent($content) {
 		if (is_object($content) == true) {
 			$this->_content = $this->decodeContent($content->text,false);
@@ -283,50 +303,97 @@ class ModuleWysiwyg {
 		return $this;
 	}
 
+	/**
+	 * 필수필드 여부를 설정한다.
+	 *
+	 * @param boolean $required 필수여부
+	 * @return $this
+	 */
 	function setRequired($required) {
 		$this->_required = $required;
 
 		return $this;
 	}
 
+	/**
+	 * 에디터 테마를 정의한다.
+	 *
+	 * @param string $theme 테마
+	 * @return $this
+	 */
 	function setTheme($theme) {
 		$this->_theme = $theme;
 
 		return $this;
 	}
 
-	function getAttachment() {
-		return $this->_attachment;
-	}
-
+	/**
+	 * 에디터 높이를 정의한다.
+	 *
+	 * @param int $height 높이(px)
+	 * @return $this
+	 */
 	function setHeight($height) {
 		$this->_height = $height;
 
 		return $this;
 	}
-
+	
+	/**
+	 * 파일업로드 사용여부를 설정한다.
+	 *
+	 * @param boolean $uploadFile 파일업로드 사용여부
+	 * @return $this
+	 */
 	function setFileUpload($uploadFile) {
 		$this->_fileUpload = $uploadFile;
 
 		return $this;
 	}
 
-	function getImageUpload($uploadImage) {
+	/**
+	 * 이미지업로드 사용여부를 설정한다.
+	 *
+	 * @param boolean $uploadImage 이미지업로드 사용여부
+	 * @return $this
+	 */
+	function setImageUpload($uploadImage) {
 		$this->_imageUpload = $uploadImage;
 
 		return $this;
 	}
 
+	/**
+	 * 에디터에서 숨길 도구버튼을 정의한다.
+	 *
+	 * @param string[] $hideButtons 숨길버튼
+	 * @return $this
+	 */
 	function setHideButtons($hideButtons=array()) {
 		$this->_hideButtons = $hideButtons;
 
 		return $this;
 	}
 
+	/**
+	 * 툴바를 고정시킬지 여부를 설정한다.
+	 *
+	 * @param boolean $toolbarFixed 툴바고정여부
+	 * @return $this
+	 */
 	function setToolBarFixed($toolbarFixed) {
 		$this->_toolBarFixed = $toolbarFixed;
 
 		return $this;
+	}
+
+	/**
+	 * 첨부파일모듈을 가져온다.
+	 *
+	 * @return class $attachment
+	 */
+	function getAttachment() {
+		return $this->_attachment;
 	}
 
 	/**
@@ -376,7 +443,7 @@ class ModuleWysiwyg {
 
 		if ($this->_disabled == true) {
 			if ($is_inline == true) return '<div id="'.$this->_id.'">'.($this->_content !== null ? $this->_content : '').'</div>';
-			else return '<textarea id="'.$this->_id.'" name="'.$this->_name.'" title="내용" data-wysiwyg="FALSE"'.($this->_required == true ? ' data-required="required"' : '').''.($this->_placeholderText != null ? ' placeholder="'.$this->_placeholderText.'"' : '').' style="height:'.$this->_height.'px;">'.($this->_content !== null ? $this->_content : '').'</textarea>';
+			else return '<textarea id="'.$this->_id.'" name="'.$this->_name.'" title="'.($this->_title == null ? $this->getText('text/title') : $this->_title).'" data-wysiwyg="FALSE"'.($this->_required == true ? ' data-required="required"' : '').''.($this->_placeholderText != null ? ' placeholder="'.$this->_placeholderText.'"' : '').' style="height:'.$this->_height.'px;">'.($this->_content !== null ? $this->_content : '').'</textarea>';
 		}
 
 		$wysiwyg = PHP_EOL.'<div data-role="module" data-module="wysiwyg">'.PHP_EOL;
