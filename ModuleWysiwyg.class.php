@@ -664,6 +664,8 @@ class ModuleWysiwyg {
 		if ($is_purify == true) {
 			$content = $this->getHTMLPurifier()->purify($content);
 			$content = PHP_EOL.'<div data-role="wysiwyg-content">'.$content.'</div>'.PHP_EOL;
+		} else {
+			$content = str_replace(array('&lt;','&gt;'),array('&amp;lt;','&amp;gt;'),$content);
 		}
 
 		return $content;
