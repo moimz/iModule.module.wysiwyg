@@ -1,7 +1,7 @@
 /*!
- * froala_editor v2.7.5 (https://www.froala.com/wysiwyg-editor)
+ * froala_editor v2.9.5 (https://www.froala.com/wysiwyg-editor)
  * License https://froala.com/wysiwyg-editor/terms/
- * Copyright 2014-2018 Froala Labs
+ * Copyright 2014-2019 Froala Labs
  */
 
 (function (factory) {
@@ -89,7 +89,22 @@ $.FE.LANGUAGE['nb'] = {
 
     // Lists
     "Ordered List": "Ordnet liste",
+    "Default": "Misligholde",
+    "Lower Alpha": "Lavere alfa",
+    "Lower Greek": "Lavere greske",
+    "Lower Roman": "Lavere romersk",
+    "Upper Alpha": "Øvre alfa",
+    "Upper Roman": "Øvre roman",
+
     "Unordered List": "Uordnet liste",
+    "Circle": "Sirkel",
+    "Disc": "Plate",
+    "Square": "Torget",
+
+    // Line height
+    "Line Height": "Linjehøyde",
+    "Single": "Enkelt",
+    "Double": "Dobbelt",
 
     // Indent
     "Decrease Indent": "Reduser innrykk",
@@ -121,7 +136,7 @@ $.FE.LANGUAGE['nb'] = {
     "Display": "Utstilling",
     "Inline": "P\u00e5 linje",
     "Break Text": "Brudd tekst",
-    "Alternate Text": "Alternativ tekst",
+    "Alternative Text": "Alternativ tekst",
     "Change Size": "Endre st\u00f8rrelse",
     "Width": "Bredde",
     "Height": "H\u00f8yde",
@@ -243,6 +258,9 @@ $.FE.LANGUAGE['nb'] = {
 
     // Clear formatting
     "Clear Formatting": "Fjerne formatering",
+
+    // Save
+    "Save": "Lagre",
 
     // Undo, redo
     "Undo": "Angre",

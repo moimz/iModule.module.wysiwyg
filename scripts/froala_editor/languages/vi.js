@@ -1,7 +1,7 @@
 /*!
- * froala_editor v2.7.5 (https://www.froala.com/wysiwyg-editor)
+ * froala_editor v2.9.5 (https://www.froala.com/wysiwyg-editor)
  * License https://froala.com/wysiwyg-editor/terms/
- * Copyright 2014-2018 Froala Labs
+ * Copyright 2014-2019 Froala Labs
  */
 
 (function (factory) {
@@ -85,7 +85,22 @@ $.FE.LANGUAGE['vi'] = {
 
     // Lists
     "Ordered List": "Danh s\u00E1ch theo th\u1EE9 t\u1EF1",
+    "Default": "Mặc định",
+    "Lower Alpha": "Hạ alpha",
+    "Lower Greek": "Hạ Hy Lạp",
+    "Lower Roman": "Hạ La Mã",
+    "Upper Alpha": "Alpha trên",
+    "Upper Roman": "Thượng lưu La Mã",
+
     "Unordered List": "Danh s\u00E1ch li\u1EC7t k\u00EA",
+    "Circle": "Vòng tròn",
+    "Disc": "Đĩa",
+    "Square": "Quảng trường",
+
+    // Line height
+    "Line Height": "Chiều cao giữa các dòng",
+    "Single": "Độc thân",
+    "Double": "Gấp đôi",
 
     // Indent
     "Decrease Indent": "Gi\u1EA3m c\u0103n l\u1EC1",
@@ -117,7 +132,7 @@ $.FE.LANGUAGE['vi'] = {
     "Display": "Hi\u1EC3n th\u1ECB",
     "Inline": "C\u00F9ng d\u00F2ng v\u1EDBi ch\u1EEF",
     "Break Text": "Kh\u00F4ng c\u00F9ng d\u00F2ng v\u1EDBi ch\u1EEF",
-    "Alternate Text": "Thay th\u1EBF ch\u1EEF",
+    "Alternative Text": "Thay th\u1EBF ch\u1EEF",
     "Change Size": "Thay \u0111\u1ED5i k\u00EDch c\u1EE1",
     "Width": "Chi\u1EC1u r\u1ED9ng",
     "Height": "Chi\u1EC1u cao",
@@ -183,6 +198,9 @@ $.FE.LANGUAGE['vi'] = {
 
     // Clear formatting
     "Clear Formatting": "X\u00F3a \u0111\u1ECBnh d\u1EA1ng",
+
+    // Save
+    "Save": "Save",
 
     // Undo, redo
     "Undo": "Undo",

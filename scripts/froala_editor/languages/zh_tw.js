@@ -1,7 +1,7 @@
 /*!
- * froala_editor v2.7.5 (https://www.froala.com/wysiwyg-editor)
+ * froala_editor v2.9.5 (https://www.froala.com/wysiwyg-editor)
  * License https://froala.com/wysiwyg-editor/terms/
- * Copyright 2014-2018 Froala Labs
+ * Copyright 2014-2019 Froala Labs
  */
 
 (function (factory) {
@@ -89,7 +89,22 @@ $.FE.LANGUAGE['zh_tw'] = {
 
     // Lists
     "Ordered List": "\u6578\u5b57\u6e05\u55ae",
+    "Default": "默認",
+    "Lower Alpha": "低α",
+    "Lower Greek": "下希臘",
+    "Lower Roman": "較低的羅馬",
+    "Upper Alpha": "上阿爾法",
+    "Upper Roman": "上羅馬",
+
     "Unordered List": "\u9805\u76ee\u6e05\u55ae",
+    "Circle": "圈",
+    "Disc": "圓盤",
+    "Square": "廣場",
+
+    // Line height
+    "Line Height": "線高",
+    "Single": "單",
+    "Double": "雙",
 
     // Indent
     "Decrease Indent": "\u6e1b\u5c11\u7e2e\u6392",
@@ -121,7 +136,7 @@ $.FE.LANGUAGE['zh_tw'] = {
     "Display": "\u986f\u793a",
     "Inline": "\u5d4c\u5165",
     "Break Text": "\u8207\u6587\u5b57\u5206\u96e2",
-    "Alternate Text": "\u6587\u5b57\u74b0\u7e5e",
+    "Alternative Text": "\u6587\u5b57\u74b0\u7e5e",
     "Change Size": "\u8abf\u6574\u5927\u5c0f",
     "Width": "\u5bec\u5ea6",
     "Height": "\u9ad8\u5ea6",
@@ -243,6 +258,9 @@ $.FE.LANGUAGE['zh_tw'] = {
 
     // Clear formatting
     "Clear Formatting": "\u6e05\u9664\u683c\u5f0f",
+
+    // Save
+    "Save": "保存",
 
     // Undo, redo
     "Undo": "\u5fa9\u539f",

@@ -1,7 +1,7 @@
 /*!
- * froala_editor v2.7.5 (https://www.froala.com/wysiwyg-editor)
+ * froala_editor v2.9.5 (https://www.froala.com/wysiwyg-editor)
  * License https://froala.com/wysiwyg-editor/terms/
- * Copyright 2014-2018 Froala Labs
+ * Copyright 2014-2019 Froala Labs
  */
 
 (function (factory) {
@@ -89,7 +89,22 @@ $.FE.LANGUAGE['de'] = {
 
     // Lists
     "Ordered List": "Nummerierte Liste",
+    "Default": "Standard",
+    "Lower Alpha": "Kleinbuchstaben",
+    "Lower Greek": "Griechisches Alphabet",
+    "Lower Roman": "Römische Ziffern (klein)",
+    "Upper Alpha": "Grossbuchstaben",
+    "Upper Roman": "Römische Ziffern (gross)",
+
     "Unordered List": "Unnummerierte Liste",
+    "Circle": "Kreis",
+    "Disc": "Kreis gefüllt",
+    "Square": "Quadrat",
+
+    // Line height
+    "Line Height": "Zeilenhöhe",
+    "Single": "Einfach",
+    "Double": "Doppelt",
 
     // Indent
     "Decrease Indent": "Einzug verkleinern",
@@ -121,7 +136,7 @@ $.FE.LANGUAGE['de'] = {
     "Display": "Textausrichtung",
     "Inline": "Mit Text in einer Zeile",
     "Break Text": "Text umbrechen",
-    "Alternate Text": "Alternativtext",
+    "Alternative Text": "Alternativtext",
     "Change Size": "Größe ändern",
     "Width": "Breite",
     "Height": "Höhe",
@@ -243,6 +258,9 @@ $.FE.LANGUAGE['de'] = {
 
     // Clear formatting
     "Clear Formatting": "Formatierung löschen",
+
+    // Save
+    "Save": "Sparen",
 
     // Undo, redo
     "Undo": "Rückgängig",

@@ -152,7 +152,7 @@ foreach ($plugins as $plugin) {
 		}
 		
 		$textarea.froalaEditor({
-			key:"1ZSZGUSXYSMZb1JGZ==", // Froala Wysiwyg OEM License Key For MoimzTools Only
+			key:"1G4C2A10A6E5B4gC3E3G3C2B7D5B3F4D2C1zHMDUGENKACTMXQL==", // Froala Wysiwyg OEM License Key For MoimzTools Only
 			codeMirror:window.CodeMirror,
 			codeMirrorOptions:{
 				indentWithTabs:true,
