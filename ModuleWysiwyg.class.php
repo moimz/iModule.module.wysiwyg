@@ -294,11 +294,13 @@ class ModuleWysiwyg {
 	 */
 	function setContent($content) {
 		if (is_object($content) == true) {
-			$this->_content = str_replace(array('&lt;','&gt;'),array('&amp;lt;','&amp;gt;'),$this->decodeContent($content->text,false));
+			$this->_content = $this->decodeContent($content->text,false);
 			$this->_files = $content->files;
 		} else {
 			$this->_content = $this->decodeContent($content,false);
 		}
+		
+		$this->_content = str_replace(array('&lt;','&gt;'),array('&amp;lt;','&amp;gt;'),$this->_content);
 
 		return $this;
 	}
