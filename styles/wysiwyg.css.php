@@ -8,7 +8,7 @@
  * @author Arzz (arzz@arzz.com)
  * @license MIT License
  * @version 3.0.0
- * @modified 2020. 3. 26.
+ * @modified 2021. 5. 25.
  */
 header("Content-Type: text/css; charset=utf-8");
 
@@ -40,9 +40,10 @@ readfile(__DIR__.'/froala_editor/froala_style.min.css');
 .fr-box table thead tr {border-bottom:2px solid #252525}
 .fr-box table thead th {background:#e6e6e6; border:1px solid #dddddd; padding:2px 5px;}
 .fr-box table tbody td {border:1px solid #dddddd; padding:2px 5px; vertical-align:middle; }
-.fr-box .fr-file {display:inline-block; border:1px solid #ddd; border-radius:5px; color:#000; text-decoration:none; vertial-align:middle; padding:5px 10px 5px 30px; background:url(../images/download.png) no-repeat 10px 50%; background-size:14px 14px;}
-.fr-box .fr-file:hover {background-color:rgba(0,0,0,0.1);}
-.fr-box .fr-file > i.size {display:inline-block; padding-left:5px; color:#666; font-style:normal;}
+.fr-box .fr-file {display:inline-block; color:#1976D2; text-decoration:none; vertical-align:middle; padding:0px 10px 0px 20px; background:url(../images/download.png) no-repeat 0px 50%; background-size:14px 14px;}
+.fr-box .fr-file > span {display:inline-block; padding-left:5px; color:#666; font-style:normal;}
+.fr-box .fr-file > span:before {content:"(";}
+.fr-box .fr-file > span:after {content:")";}
 .fr-box img {max-width:100%;}
 
 .fr-wrapper {border-radius:0px !important;}

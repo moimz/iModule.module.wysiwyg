@@ -10,7 +10,7 @@
  * @author Arzz (arzz@arzz.com)
  * @license MIT License
  * @version 3.0.0
- * @modified 2020. 3. 26.
+ * @modified 2021. 5. 25.
  */
 header("Content-Type: application/x-javascript; charset=utf-8");
 
@@ -128,6 +128,12 @@ foreach ($plugins as $plugin) {
 				var result = typeof response == "object" ? response : JSON.parse(response);
 				if (result.idx) {
 					$file.attr("data-idx",result.idx);
+					$file.attr("contenteditable","false");
+					$file.addClass("fr-deletable");
+					
+					if (result.size) {
+						$file.append($("<span>").html(iModule.getFileSize(result.size)));
+					}
 				}
 				$file.attr("data-code",null);
 			}
