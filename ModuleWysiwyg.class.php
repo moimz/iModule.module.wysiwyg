@@ -634,10 +634,10 @@ class ModuleWysiwyg {
 	 * @param string $content 위지윅에디터 원본내용
 	 * @return string $content 출력을 위한 위지윅에디터 내용
 	 */
-	function decodeContent($content,$is_purify=true) {
+	function decodeContent($content,$is_purify=true,$is_fullurl=false) {
 		if (preg_match_all('/<img([^>]*)data-idx="([0-9]+)"([^>]*)>/',$content,$match,PREG_SET_ORDER) == true) {
 			for ($i=0, $loop=count($match);$i<$loop;$i++) {
-				$file = $this->IM->getModule('attachment')->getFileInfo($match[$i][2]);
+				$file = $this->IM->getModule('attachment')->getFileInfo($match[$i][2],false,$is_fullurl);
 				if ($file != null) {
 					$match[$i][1] = preg_replace("!src=\"(.*?)\"!is","",$match[$i][1]);
 					$match[$i][3] = preg_replace("!src=\"(.*?)\"!is","",$match[$i][3]);
@@ -651,7 +651,7 @@ class ModuleWysiwyg {
 
 		if (preg_match_all('/<a([^>]*)data-idx="([0-9]+)"([^>]*)>/',$content,$match,PREG_SET_ORDER) == true) {
 			for ($i=0, $loop=count($match);$i<$loop;$i++) {
-				$file = $this->IM->getModule('attachment')->getFileInfo($match[$i][2]);
+				$file = $this->IM->getModule('attachment')->getFileInfo($match[$i][2],false,$is_fullurl);
 				if ($file != null) {
 					$match[$i][1] = preg_replace("!href=\"(.*?)\"!is","",$match[$i][1]);
 					$match[$i][3] = preg_replace("!href=\"(.*?)\"!is","",$match[$i][3]);
