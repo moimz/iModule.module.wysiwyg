@@ -415,6 +415,7 @@ class ModuleWysiwyg {
 	 * 위지윅에디터를 사용하기 위한 필수요소를 미리 불러온다.
 	 */
 	function preload() {
+		$this->IM->loadWebFont('FontAwesome');
 		$this->IM->addHeadResource('script',$this->getModule()->getDir().'/scripts/wysiwyg.js.php');
 		$this->IM->addHeadResource('style',$this->getModule()->getDir().'/styles/wysiwyg.css.php?theme='.$this->_theme);
 		$this->loadCodeMirror();
