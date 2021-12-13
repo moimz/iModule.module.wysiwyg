@@ -656,7 +656,7 @@ class ModuleWysiwyg {
 				if ($file != null) {
 					$match[$i][1] = preg_replace("!href=\"(.*?)\"!is","",$match[$i][1]);
 					$match[$i][3] = preg_replace("!href=\"(.*?)\"!is","",$match[$i][3]);
-					$link = '<a'.$match[$i][1].'data-idx="'.$match[$i][2].'" href="'.$this->IM->getModule('attachment')->getFileInfo($match[$i][2])->download.'"'.$match[$i][3].'>';
+					$link = '<a'.$match[$i][1].'data-idx="'.$match[$i][2].'" href="'.$file->download.'"'.$match[$i][3].'>';
 				} else {
 					$link = '';
 				}
