@@ -642,7 +642,7 @@ class ModuleWysiwyg {
 				if ($file != null) {
 					$match[$i][1] = preg_replace("!src=\"(.*?)\"!is","",$match[$i][1]);
 					$match[$i][3] = preg_replace("!src=\"(.*?)\"!is","",$match[$i][3]);
-					$image = '<img'.$match[$i][1].'data-idx="'.$match[$i][2].'" src="'.$file->path.'"'.$match[$i][3].'>';
+					$image = '<a href="'.$file->path.'" target="_blank"><img'.$match[$i][1].'data-idx="'.$match[$i][2].'" src="'.$file->path.'"'.$match[$i][3].'></a>';
 				} else {
 					$image = '';
 				}
